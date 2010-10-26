@@ -1,0 +1,9 @@
+bin
+*.pidb
+Temp
+.DS_Store
+Library/ScriptAssemblies
+*.userprefs
+Publish
+*.csproj
+*.sln
