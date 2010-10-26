@@ -1,0 +1,5 @@
+KNOWN ISSUES:
+
+The path param of MoveTo/MoveFrom is not yet implemented, need to support Vector3OrTransform[]
+
+Some types are not being serialized properly, currently I know about Color and Transform, there are probably more.
