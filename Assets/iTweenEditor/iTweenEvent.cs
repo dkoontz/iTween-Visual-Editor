@@ -84,13 +84,20 @@ public class iTweenEvent : MonoBehaviour{
 		}
 	}
 	
-	// Must be public to be serialized
-	[HideInInspector]
-	public byte[] bytes;
+	[SerializeField]
+	byte[] bytes;
 	
-	// Used to hold onto Dictionary entries that are Transforms, since we can't serialize them
-	[HideInInspector]
-	public Transform[] transforms;
+	// Used to hold onto Dictionary entries that are Transforms, since we can't serialize them via BitStream or with .NET
+	[SerializeField]
+	Transform[] transforms;
+
+	// Used to hold onto Dictionary entries that are AudioClips, since we can't serialize them via BitStream or with .NET
+	[SerializeField]
+	AudioClip[] audioClips;
+	
+	// Used to hold onto Dictionary entries that are AudioSources, since we can't serialize them via BitStream or with .NET
+	[SerializeField]
+	AudioSource[] audioSources;
 	
 	Dictionary<string, object> values;
 	
@@ -228,6 +235,8 @@ public class iTweenEvent : MonoBehaviour{
 	
 	void ReplaceNonSerializableTypes(object[] list) {
 		var transformList = new List<Transform>();
+		var audioClipList = new List<AudioClip>();
+		var audioSourceList = new List<AudioSource>();
 		
 		for(int i = 0; i < list.Length; ++i) {
 			if(null == list[i]) { continue; }
@@ -250,9 +259,19 @@ public class iTweenEvent : MonoBehaviour{
 				transformList.Add((Transform)list[i]);
 				list[i] = new TransformSerializationContainer(transformList.Count - 1);
 			}
+			else if(list[i] is AudioClip) {
+				audioClipList.Add((AudioClip)list[i]);
+				list[i] = new AudioClipSerializationContainer(audioClipList.Count - 1);
+			}
+			else if(list[i] is AudioSource) {
+				audioSourceList.Add((AudioSource)list[i]);
+				list[i] = new AudioSourceSerializationContainer(audioSourceList.Count - 1);
+			}
 		}
 		
 		transforms = transformList.ToArray();
+		audioClips = audioClipList.ToArray();
+		audioSources = audioSourceList.ToArray();
 	}
 	
 	void RestoreNonSerializableTypes(object[] list) {
@@ -275,6 +294,12 @@ public class iTweenEvent : MonoBehaviour{
 			}
 			else if(list[i] is TransformSerializationContainer) {
 				list[i] = transforms[((TransformSerializationContainer)list[i]).Index()];
+			}
+			else if(list[i] is AudioClipSerializationContainer) {
+				list[i] = audioClips[((AudioClipSerializationContainer)list[i]).Index()];
+			}
+			else if(list[i] is AudioSourceSerializationContainer) {
+				list[i] = audioSources[((AudioSourceSerializationContainer)list[i]).Index()];
 			}
 		}
 	}

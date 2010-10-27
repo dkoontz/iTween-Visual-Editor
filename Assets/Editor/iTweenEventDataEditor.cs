@@ -34,6 +34,13 @@ public class iTweenEventDataEditor : Editor {
 	Dictionary<string, bool> propertiesEnabled = new Dictionary<string, bool>();
 	iTweenEvent.TweenType previousType;
 	
+	[MenuItem("Component/iTween/iTweenEvent")]
+    static void AddiTweenEvent () {
+		if(Selection.activeGameObject != null) {
+			Selection.activeGameObject.AddComponent(typeof(iTweenEvent));
+		}
+    }
+	
 	public void OnEnable() {
 		var evt = (iTweenEvent)target;
 		foreach(var key in EventParamMappings.mappings[evt.type].Keys) {
@@ -147,6 +154,9 @@ public class iTweenEventDataEditor : Editor {
 				}
 				else if(typeof(AudioSource) == pair.Value) {
 					values[key] = (AudioSource)EditorGUILayout.ObjectField(values.ContainsKey(key) ? (AudioSource)values[key] : null, typeof(AudioSource));
+				}
+				else if(typeof(AudioClip) == pair.Value) {
+					values[key] = (AudioClip)EditorGUILayout.ObjectField(values.ContainsKey(key) ? (AudioClip)values[key] : null, typeof(AudioClip));
 				}
 				else if(typeof(Color) == pair.Value) {
 					values[key] = EditorGUILayout.ColorField(values.ContainsKey(key) ? (Color)values[key] : Color.white);
