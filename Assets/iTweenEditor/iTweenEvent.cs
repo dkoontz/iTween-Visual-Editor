@@ -222,7 +222,7 @@ public class iTweenEvent : MonoBehaviour{
 	}
 	
 	
-	// need to add Color and Transform
+	// need to add Transform
 	void ReplaceNonSerializableTypes(object[] list) {
 		for(int i = 0; i < list.Length; ++i) {
 			if(null == list[i]) { continue; }
@@ -237,6 +237,9 @@ public class iTweenEvent : MonoBehaviour{
 					serializableValues[i2] = new Vector3SerializationContainer(originalValues[i2]);
 				}
 				list[i] = serializableValues;
+			}
+			else if(list[i] is Color) {
+				list[i] = new ColorSerializationContainer((Color)list[i]);
 			}
 		}
 	}
@@ -255,6 +258,9 @@ public class iTweenEvent : MonoBehaviour{
 					originalValues[i2] = serializedValues[i2].ToVector3();
 				}
 				list[i] = originalValues;
+			}
+			else if(list[i] is ColorSerializationContainer) {
+				list[i] = ((ColorSerializationContainer)list[i]).ToColor();
 			}
 		}
 	}
