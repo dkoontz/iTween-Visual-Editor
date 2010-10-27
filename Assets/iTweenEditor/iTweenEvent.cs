@@ -88,6 +88,10 @@ public class iTweenEvent : MonoBehaviour{
 	[HideInInspector]
 	public byte[] bytes;
 	
+	// Used to hold onto Dictionary entries that are Transforms, since we can't serialize them
+	[HideInInspector]
+	public Transform[] transforms;
+	
 	Dictionary<string, object> values;
 	
 	public void Start() {
@@ -222,8 +226,9 @@ public class iTweenEvent : MonoBehaviour{
 	}
 	
 	
-	// need to add Transform
 	void ReplaceNonSerializableTypes(object[] list) {
+		var transformList = new List<Transform>();
+		
 		for(int i = 0; i < list.Length; ++i) {
 			if(null == list[i]) { continue; }
 			
@@ -241,7 +246,13 @@ public class iTweenEvent : MonoBehaviour{
 			else if(list[i] is Color) {
 				list[i] = new ColorSerializationContainer((Color)list[i]);
 			}
+			else if(list[i] is Transform) {
+				transformList.Add((Transform)list[i]);
+				list[i] = new TransformSerializationContainer(transformList.Count - 1);
+			}
 		}
+		
+		transforms = transformList.ToArray();
 	}
 	
 	void RestoreNonSerializableTypes(object[] list) {
@@ -261,6 +272,9 @@ public class iTweenEvent : MonoBehaviour{
 			}
 			else if(list[i] is ColorSerializationContainer) {
 				list[i] = ((ColorSerializationContainer)list[i]).ToColor();
+			}
+			else if(list[i] is TransformSerializationContainer) {
+				list[i] = transforms[((TransformSerializationContainer)list[i]).Index()];
 			}
 		}
 	}
