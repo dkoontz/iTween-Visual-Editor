@@ -130,6 +130,9 @@ public class iTweenEventDataEditor : Editor {
 				else if(typeof(bool) == pair.Value) {
 					values[key] = propertiesEnabled[key];
 				}
+				else if(typeof(Vector3) == pair.Value) {
+					values[key] = EditorGUILayout.Vector3Field("", values.ContainsKey(key) ? (Vector3)values[key] : Vector3.zero);
+				}
 				else if(typeof(Vector3OrTransform) == pair.Value) {
 					if(!values.ContainsKey(key)) {
 						values[key] = new Vector3OrTransform();
