@@ -89,6 +89,10 @@ public class iTweenEvent : MonoBehaviour{
 	
 	// Used to hold onto Dictionary entries that are Transforms, since we can't serialize them via BitStream or with .NET
 	[SerializeField]
+	GameObject[] gameObjects;
+	
+	// Used to hold onto Dictionary entries that are Transforms, since we can't serialize them via BitStream or with .NET
+	[SerializeField]
 	Transform[] transforms;
 
 	// Used to hold onto Dictionary entries that are AudioClips, since we can't serialize them via BitStream or with .NET
@@ -235,6 +239,7 @@ public class iTweenEvent : MonoBehaviour{
 	
 	void ReplaceNonSerializableTypes(object[] list) {
 		var transformList = new List<Transform>();
+		var gameObjectList = new List<GameObject>();
 		var audioClipList = new List<AudioClip>();
 		var audioSourceList = new List<AudioSource>();
 		
@@ -265,6 +270,10 @@ public class iTweenEvent : MonoBehaviour{
 				}
 				list[i] = serializableValues;
 			}
+			else if(list[i] is GameObject) {
+				gameObjectList.Add((GameObject)list[i]);
+				list[i] = new GameObjectSerializationContainer(gameObjectList.Count - 1);
+			}
 			else if(list[i] is Color) {
 				list[i] = new ColorSerializationContainer((Color)list[i]);
 			}
@@ -279,6 +288,7 @@ public class iTweenEvent : MonoBehaviour{
 		}
 		
 		transforms = transformList.ToArray();
+		gameObjects = gameObjectList.ToArray();
 		audioClips = audioClipList.ToArray();
 		audioSources = audioSourceList.ToArray();
 	}
@@ -308,6 +318,9 @@ public class iTweenEvent : MonoBehaviour{
 			}
 			else if(list[i] is TransformSerializationContainer) {
 				list[i] = transforms[((TransformSerializationContainer)list[i]).Index()];
+			}
+			else if(list[i] is GameObjectSerializationContainer) {
+				list[i] = gameObjects[((GameObjectSerializationContainer)list[i]).Index()];
 			}
 			else if(list[i] is ColorSerializationContainer) {
 				list[i] = ((ColorSerializationContainer)list[i]).ToColor();

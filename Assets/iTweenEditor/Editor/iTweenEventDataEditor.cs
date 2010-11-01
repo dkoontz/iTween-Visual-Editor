@@ -96,7 +96,7 @@ public class iTweenEventDataEditor : Editor {
 			}
 		}
 		
-		GUILayout.Label("iTween Event Editor v0.1");
+		GUILayout.Label("iTween Event Editor v0.2");
 		EditorGUILayout.Separator();
  		
 		GUILayout.BeginHorizontal();
@@ -148,6 +148,9 @@ public class iTweenEventDataEditor : Editor {
 				}
 				else if(typeof(bool) == pair.Value) {
 					values[key] = propertiesEnabled[key];
+				}
+				else if(typeof(GameObject) == pair.Value) {
+					values[key] = EditorGUILayout.ObjectField(values.ContainsKey(key) ? (GameObject)values[key] : null, typeof(GameObject));
 				}
 				else if(typeof(Vector3) == pair.Value) {
 					values[key] = EditorGUILayout.Vector3Field("", values.ContainsKey(key) ? (Vector3)values[key] : Vector3.zero);

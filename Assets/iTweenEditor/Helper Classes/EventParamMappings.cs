@@ -39,13 +39,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.AudioFrom]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.AudioFrom]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.AudioFrom]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.AudioFrom]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.AudioFrom]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.AudioFrom]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.AudioFrom]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.AudioFrom]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.AudioFrom]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.AudioFrom]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.AudioFrom]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.AudioFrom]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.AudioFrom]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.AudioFrom]["ignoretimescale"] = typeof(bool);
 		
 		// AUDIO TO
@@ -59,13 +59,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.AudioTo]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.AudioTo]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.AudioTo]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.AudioTo]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.AudioTo]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.AudioTo]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.AudioTo]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.AudioTo]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.AudioTo]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.AudioTo]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.AudioTo]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.AudioTo]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.AudioTo]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.AudioTo]["ignoretimescale"] = typeof(bool);
 		
 		// AUDIO UPDATE
@@ -84,13 +84,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.CameraFadeFrom]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.CameraFadeFrom]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.CameraFadeFrom]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.CameraFadeFrom]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.CameraFadeFrom]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.CameraFadeFrom]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.CameraFadeFrom]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.CameraFadeFrom]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.CameraFadeFrom]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.CameraFadeFrom]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.CameraFadeFrom]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.CameraFadeFrom]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.CameraFadeFrom]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.CameraFadeFrom]["ignoretimescale"] = typeof(bool);
 		
 		// CAMERA FADE TO
@@ -102,13 +102,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.CameraFadeTo]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.CameraFadeTo]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.CameraFadeTo]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.CameraFadeTo]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.CameraFadeTo]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.CameraFadeTo]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.CameraFadeTo]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.CameraFadeTo]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.CameraFadeTo]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.CameraFadeTo]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.CameraFadeTo]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.CameraFadeTo]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.CameraFadeTo]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.CameraFadeTo]["ignoretimescale"] = typeof(bool);
 		
 		// COLOR FROM
@@ -126,13 +126,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.ColorFrom]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.ColorFrom]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ColorFrom]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ColorFrom]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ColorFrom]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ColorFrom]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ColorFrom]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ColorFrom]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ColorFrom]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ColorFrom]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ColorFrom]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ColorFrom]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ColorFrom]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ColorFrom]["ignoretimescale"] = typeof(bool);
 		
 		// COLOR TO
@@ -150,13 +150,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.ColorTo]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.ColorTo]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ColorTo]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ColorTo]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ColorTo]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ColorTo]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ColorTo]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ColorTo]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ColorTo]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ColorTo]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ColorTo]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ColorTo]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ColorTo]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ColorTo]["ignoretimescale"] = typeof(bool);
 		
 		// COLOR UPDATE
@@ -181,13 +181,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.FadeFrom]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.FadeFrom]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.FadeFrom]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.FadeFrom]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.FadeFrom]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.FadeFrom]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.FadeFrom]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.FadeFrom]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.FadeFrom]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.FadeFrom]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.FadeFrom]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.FadeFrom]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.FadeFrom]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.FadeFrom]["ignoretimescale"] = typeof(bool);
 		
 		// FADE TO
@@ -201,13 +201,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.FadeTo]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.FadeTo]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.FadeTo]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.FadeTo]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.FadeTo]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.FadeTo]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.FadeTo]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.FadeTo]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.FadeTo]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.FadeTo]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.FadeTo]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.FadeTo]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.FadeTo]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.FadeTo]["ignoretimescale"] = typeof(bool);
 		
 		// FADE UPDATE
@@ -227,13 +227,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.LookFrom]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.LookFrom]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.LookFrom]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.LookFrom]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.LookFrom]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.LookFrom]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.LookFrom]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.LookFrom]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.LookFrom]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.LookFrom]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.LookFrom]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.LookFrom]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.LookFrom]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.LookFrom]["ignoretimescale"] = typeof(bool);
 		
 		// LOOK TO
@@ -247,13 +247,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.LookTo]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.LookTo]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.LookTo]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.LookTo]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.LookTo]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.LookTo]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.LookTo]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.LookTo]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.LookTo]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.LookTo]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.LookTo]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.LookTo]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.LookTo]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.LookTo]["ignoretimescale"] = typeof(bool);
 		
 		// LOOK UPDATE
@@ -280,13 +280,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.MoveAdd]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.MoveAdd]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveAdd]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.MoveAdd]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.MoveAdd]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveAdd]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveAdd]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.MoveAdd]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.MoveAdd]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveAdd]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveAdd]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.MoveAdd]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.MoveAdd]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveAdd]["ignoretimescale"] = typeof(bool);
 
 		// MOVE BY
@@ -307,13 +307,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.MoveBy]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.MoveBy]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveBy]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.MoveBy]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.MoveBy]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveBy]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveBy]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.MoveBy]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.MoveBy]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveBy]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveBy]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.MoveBy]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.MoveBy]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveBy]["ignoretimescale"] = typeof(bool);
 		
 		// MOVE FROM
@@ -337,13 +337,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.MoveFrom]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.MoveFrom]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveFrom]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.MoveFrom]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.MoveFrom]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveFrom]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveFrom]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.MoveFrom]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.MoveFrom]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveFrom]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveFrom]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.MoveFrom]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.MoveFrom]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveFrom]["ignoretimescale"] = typeof(bool);
 		
 		// MOVE TO
@@ -367,13 +367,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.MoveTo]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.MoveTo]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveTo]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.MoveTo]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.MoveTo]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveTo]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveTo]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.MoveTo]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.MoveTo]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveTo]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveTo]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.MoveTo]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.MoveTo]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.MoveTo]["ignoretimescale"] = typeof(bool);
 		
 		// MOVE UPDATE
@@ -405,13 +405,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.PunchPosition]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.PunchPosition]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.PunchPosition]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.PunchPosition]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.PunchPosition]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.PunchPosition]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.PunchPosition]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.PunchPosition]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.PunchPosition]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.PunchPosition]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.PunchPosition]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.PunchPosition]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.PunchPosition]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.PunchPosition]["ignoretimescale"] = typeof(bool);
 
 		// PUNCH ROTATION
@@ -427,13 +427,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.PunchRotation]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.PunchRotation]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.PunchRotation]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.PunchRotation]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.PunchRotation]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.PunchRotation]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.PunchRotation]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.PunchRotation]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.PunchRotation]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.PunchRotation]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.PunchRotation]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.PunchRotation]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.PunchRotation]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.PunchRotation]["ignoretimescale"] = typeof(bool);
 
 		// PUNCH SCALE
@@ -448,13 +448,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.PunchScale]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.PunchScale]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.PunchScale]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.PunchScale]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.PunchScale]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.PunchScale]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.PunchScale]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.PunchScale]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.PunchScale]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.PunchScale]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.PunchScale]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.PunchScale]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.PunchScale]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.PunchScale]["ignoretimescale"] = typeof(bool);
 		
 		// ROTATE ADD
@@ -471,13 +471,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.RotateAdd]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.RotateAdd]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateAdd]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.RotateAdd]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.RotateAdd]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateAdd]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateAdd]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.RotateAdd]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.RotateAdd]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateAdd]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateAdd]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.RotateAdd]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.RotateAdd]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateAdd]["ignoretimescale"] = typeof(bool);
 		
 		// ROTATE BY
@@ -494,13 +494,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.RotateBy]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.RotateBy]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateBy]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.RotateBy]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.RotateBy]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateBy]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateBy]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.RotateBy]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.RotateBy]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateBy]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateBy]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.RotateBy]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.RotateBy]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateBy]["ignoretimescale"] = typeof(bool);		
 		
 		// ROTATE FROM
@@ -517,13 +517,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.RotateFrom]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.RotateFrom]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateFrom]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.RotateFrom]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.RotateFrom]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateFrom]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateFrom]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.RotateFrom]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.RotateFrom]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateFrom]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateFrom]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.RotateFrom]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.RotateFrom]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateFrom]["ignoretimescale"] = typeof(bool);		
 		
 		// ROTATE TO
@@ -540,13 +540,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.RotateTo]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.RotateTo]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateTo]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.RotateTo]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.RotateTo]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateTo]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateTo]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.RotateTo]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.RotateTo]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateTo]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateTo]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.RotateTo]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.RotateTo]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.RotateTo]["ignoretimescale"] = typeof(bool);			
 		
 		// ROTATE UPDATE
@@ -571,13 +571,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.ScaleAdd]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.ScaleAdd]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleAdd]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ScaleAdd]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ScaleAdd]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleAdd]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleAdd]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ScaleAdd]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ScaleAdd]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleAdd]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleAdd]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ScaleAdd]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ScaleAdd]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleAdd]["ignoretimescale"] = typeof(bool);
 		
 		// SCALE BY
@@ -593,13 +593,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.ScaleBy]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.ScaleBy]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleBy]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ScaleBy]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ScaleBy]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleBy]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleBy]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ScaleBy]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ScaleBy]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleBy]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleBy]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ScaleBy]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ScaleBy]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleBy]["ignoretimescale"] = typeof(bool);
 		
 		// SCALE FROM
@@ -615,13 +615,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.ScaleFrom]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.ScaleFrom]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleFrom]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ScaleFrom]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ScaleFrom]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleFrom]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleFrom]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ScaleFrom]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ScaleFrom]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleFrom]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleFrom]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ScaleFrom]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ScaleFrom]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleFrom]["ignoretimescale"] = typeof(bool);
 		
 		// SCALE TO
@@ -637,13 +637,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.ScaleTo]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.ScaleTo]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleTo]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ScaleTo]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ScaleTo]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleTo]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleTo]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ScaleTo]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ScaleTo]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleTo]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleTo]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ScaleTo]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ScaleTo]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ScaleTo]["ignoretimescale"] = typeof(bool);
 		
 		// SCALE UPDATE
@@ -670,13 +670,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.ShakePosition]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.ShakePosition]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ShakePosition]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ShakePosition]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ShakePosition]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ShakePosition]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ShakePosition]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ShakePosition]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ShakePosition]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ShakePosition]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ShakePosition]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ShakePosition]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ShakePosition]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ShakePosition]["ignoretimescale"] = typeof(bool);
 		
 		// SHAKE ROTATION
@@ -691,13 +691,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.ShakeRotation]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.ShakeRotation]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ShakeRotation]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ShakeRotation]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ShakeRotation]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ShakeRotation]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ShakeRotation]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ShakeRotation]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ShakeRotation]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ShakeRotation]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ShakeRotation]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ShakeRotation]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ShakeRotation]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ShakeRotation]["ignoretimescale"] = typeof(bool);
 		
 		// SHAKE SCALE
@@ -711,13 +711,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.ShakeScale]["looptype"] = typeof(iTween.LoopType);
 		mappings[iTweenEvent.TweenType.ShakeScale]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ShakeScale]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ShakeScale]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ShakeScale]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ShakeScale]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ShakeScale]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ShakeScale]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ShakeScale]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ShakeScale]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ShakeScale]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.ShakeScale]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.ShakeScale]["oncompleteparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.ShakeScale]["ignoretimescale"] = typeof(bool);
 		
 		// STAB
@@ -729,13 +729,13 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.Stab]["delay"] = typeof(float);
 		mappings[iTweenEvent.TweenType.Stab]["onstart"] = typeof(string);
 		mappings[iTweenEvent.TweenType.Stab]["onstarttarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.Stab]["onstartparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.Stab]["onstartparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.Stab]["onupdate"] = typeof(string);
 		mappings[iTweenEvent.TweenType.Stab]["onupdatetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.Stab]["onupdateparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.Stab]["onupdateparams"] = typeof(string);
 		mappings[iTweenEvent.TweenType.Stab]["oncomplete"] = typeof(string);
 		mappings[iTweenEvent.TweenType.Stab]["oncompletetarget"] = typeof(GameObject);
-		mappings[iTweenEvent.TweenType.Stab]["oncompleteparams"] = typeof(object);
+		mappings[iTweenEvent.TweenType.Stab]["oncompleteparams"] = typeof(string);
 		
 		
 	}
