@@ -238,26 +238,35 @@ public class iTweenEvent : MonoBehaviour{
 		var audioClipList = new List<AudioClip>();
 		var audioSourceList = new List<AudioSource>();
 		
-		for(int i = 0; i < list.Length; ++i) {
+		for(var i = 0; i < list.Length; ++i) {
 			if(null == list[i]) { continue; }
 			
 			if(list[i] is Vector3) {
 				list[i] = new Vector3SerializationContainer((Vector3)list[i]);
 			}
 			else if(list[i] is Vector3[]) {
-				Vector3[] originalValues = (Vector3[])list[i];
-				Vector3SerializationContainer[] serializableValues = new Vector3SerializationContainer[originalValues.Length];
-				for(int i2 = 0; i2 < originalValues.Length; ++i2) {
+				var originalValues = (Vector3[])list[i];
+				var serializableValues = new Vector3SerializationContainer[originalValues.Length];
+				for(var i2 = 0; i2 < originalValues.Length; ++i2) {
 					serializableValues[i2] = new Vector3SerializationContainer(originalValues[i2]);
+				}
+				list[i] = serializableValues;
+			}
+			else if(list[i] is Transform) {
+				transformList.Add((Transform)list[i]);
+				list[i] = new TransformSerializationContainer(transformList.Count - 1);
+			}
+			else if(list[i] is Transform[]) {
+				var originalValues = (Transform[])list[i];
+				var serializableValues = new TransformSerializationContainer[originalValues.Length];
+				for(var i2 = 0; i2 < originalValues.Length; ++i2) {
+					transformList.Add(originalValues[i2]);
+					serializableValues[i2] = new TransformSerializationContainer(transformList.Count - 1);
 				}
 				list[i] = serializableValues;
 			}
 			else if(list[i] is Color) {
 				list[i] = new ColorSerializationContainer((Color)list[i]);
-			}
-			else if(list[i] is Transform) {
-				transformList.Add((Transform)list[i]);
-				list[i] = new TransformSerializationContainer(transformList.Count - 1);
 			}
 			else if(list[i] is AudioClip) {
 				audioClipList.Add((AudioClip)list[i]);
@@ -275,25 +284,33 @@ public class iTweenEvent : MonoBehaviour{
 	}
 	
 	void RestoreNonSerializableTypes(object[] list) {
-		for(int i = 0; i < list.Length; ++i) {
+		for(var i = 0; i < list.Length; ++i) {
 			if(null == list[i]) { continue; }
 			
 			if(list[i] is Vector3SerializationContainer) {
 				list[i] = ((Vector3SerializationContainer)list[i]).ToVector3();
 			}
 			else if(list[i] is Vector3SerializationContainer[]) {
-				Vector3SerializationContainer[] serializedValues = (Vector3SerializationContainer[])list[i];
-				Vector3[] originalValues = new Vector3[serializedValues.Length];
-				for(int i2 = 0; i2 < serializedValues.Length; ++i2) {
+				var serializedValues = (Vector3SerializationContainer[])list[i];
+				var originalValues = new Vector3[serializedValues.Length];
+				for(var i2 = 0; i2 < serializedValues.Length; ++i2) {
 					originalValues[i2] = serializedValues[i2].ToVector3();
 				}
 				list[i] = originalValues;
 			}
-			else if(list[i] is ColorSerializationContainer) {
-				list[i] = ((ColorSerializationContainer)list[i]).ToColor();
+			else if(list[i] is TransformSerializationContainer[]) {
+				var serializedValues = (TransformSerializationContainer[])list[i];
+				var originalValues = new Transform[serializedValues.Length];
+				for(var i2 = 0; i2 < serializedValues.Length; ++i2) {
+					originalValues[i2] = transforms[((TransformSerializationContainer)serializedValues[i2]).Index()];
+				}
+				list[i] = originalValues;
 			}
 			else if(list[i] is TransformSerializationContainer) {
 				list[i] = transforms[((TransformSerializationContainer)list[i]).Index()];
+			}
+			else if(list[i] is ColorSerializationContainer) {
+				list[i] = ((ColorSerializationContainer)list[i]).ToColor();
 			}
 			else if(list[i] is AudioClipSerializationContainer) {
 				list[i] = audioClips[((AudioClipSerializationContainer)list[i]).Index()];

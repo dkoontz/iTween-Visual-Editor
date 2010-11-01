@@ -75,6 +75,25 @@ public class iTweenEventDataEditor : Editor {
 				
 				values[key] = val;
 			}
+			if(typeof(Vector3OrTransformArray) == EventParamMappings.mappings[evt.type][key]) {
+				var val = new Vector3OrTransformArray();
+				
+				if(null == values[key] || typeof(Transform[]) == values[key].GetType()) {
+					if(null == values[key]) {
+						val.transformArray = null;
+					}
+					else {
+						val.transformArray = (Transform[])values[key];
+					}
+					val.selected = Vector3OrTransformArray.transformSelected;
+				}
+				else if(typeof(Vector3[]) == values[key].GetType()) {
+					val.vectorArray = (Vector3[])values[key];
+					val.selected = Vector3OrTransformArray.vector3Selected;
+				}
+				
+				values[key] = val;
+			}
 		}
 		
 		GUILayout.Label("iTween Event Editor v0.1");
@@ -149,6 +168,52 @@ public class iTweenEventDataEditor : Editor {
 					}
 					values[key] = val;
 				}
+				else if(typeof(Vector3OrTransformArray) == pair.Value) {
+					if(!values.ContainsKey(key)) {
+						values[key] = new Vector3OrTransformArray();
+					}
+					var val = (Vector3OrTransformArray)values[key];
+					
+					val.selected = GUILayout.SelectionGrid(val.selected, Vector3OrTransformArray.choices, 2);
+	
+					if(Vector3OrTransformArray.vector3Selected == val.selected) {
+						if(null == val.vectorArray) {
+							val.vectorArray = new Vector3[0];
+						}
+						var elements = val.vectorArray.Length;
+						GUILayout.BeginHorizontal();
+							GUILayout.Label("Number of points");
+							elements = EditorGUILayout.IntField(elements);
+						GUILayout.EndHorizontal();
+						if(elements != val.vectorArray.Length) {
+							var resizedArray = new Vector3[elements];
+							val.vectorArray.CopyTo(resizedArray, 0);
+							val.vectorArray = resizedArray;
+						}
+						for(var i = 0; i < val.vectorArray.Length; ++i) {
+							val.vectorArray[i] = EditorGUILayout.Vector3Field("", val.vectorArray[i]);
+						}
+					}
+					else {
+						if(null == val.transformArray) {
+							val.transformArray = new Transform[0];
+						}
+						var elements = val.transformArray.Length;
+						GUILayout.BeginHorizontal();
+							GUILayout.Label("Number of points");
+							elements = EditorGUILayout.IntField(elements);
+						GUILayout.EndHorizontal();
+						if(elements != val.transformArray.Length) {
+							var resizedArray = new Transform[elements];
+							val.transformArray.CopyTo(resizedArray, 0);
+							val.transformArray = resizedArray;
+						}
+						for(var i = 0; i < val.transformArray.Length; ++i) {
+							val.transformArray[i] = (Transform)EditorGUILayout.ObjectField(val.transformArray[i], typeof(Transform));
+						}
+					}
+					values[key] = val;
+				}
 				else if(typeof(iTween.LoopType) == pair.Value) {
 					values[key] = EditorGUILayout.EnumPopup(values.ContainsKey(key) ? (iTween.LoopType)values[key] : iTween.LoopType.none);
 				}
@@ -191,6 +256,15 @@ public class iTweenEventDataEditor : Editor {
 				}
 				else {
 					values[key] = val.transform;
+				}
+			}
+			else if(values[key] != null && values[key].GetType() == typeof(Vector3OrTransformArray)) {
+				var val = (Vector3OrTransformArray)values[key];
+				if(Vector3OrTransformArray.vector3Selected == val.selected) {
+					values[key] = val.vectorArray;
+				}
+				else {
+					values[key] = val.transformArray;
 				}
 			}
 		}

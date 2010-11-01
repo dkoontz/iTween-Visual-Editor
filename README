@@ -1,5 +1,5 @@
 KNOWN ISSUES:
 
-The path param of MoveTo/MoveFrom is not yet implemented, need to support Vector3OrTransform[]
-
-AudioSource is not tested
+- AudioSource is not tested
+- oncomplete, etc. callbacks not tested
+- oncomplete callback param type is object, should be string?

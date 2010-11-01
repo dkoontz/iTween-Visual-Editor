@@ -319,7 +319,7 @@ public class EventParamMappings {
 		// MOVE FROM
 		mappings.Add(iTweenEvent.TweenType.MoveFrom, new Dictionary<string, Type>());
 		mappings[iTweenEvent.TweenType.MoveFrom]["position"] = typeof(Vector3OrTransform);
-//			mappings[iTweenEvent.TweenType.MoveFrom]["path"] = typeof(Vector3OrTransform[]);
+		mappings[iTweenEvent.TweenType.MoveFrom]["path"] = typeof(Vector3OrTransformArray);
 		mappings[iTweenEvent.TweenType.MoveFrom]["movetopath"] = typeof(bool);
 		mappings[iTweenEvent.TweenType.MoveFrom]["x"] = typeof(float);
 		mappings[iTweenEvent.TweenType.MoveFrom]["y"] = typeof(float);
@@ -349,7 +349,7 @@ public class EventParamMappings {
 		// MOVE TO
 		mappings.Add(iTweenEvent.TweenType.MoveTo, new Dictionary<string, Type>());
 		mappings[iTweenEvent.TweenType.MoveTo]["position"] = typeof(Vector3OrTransform);
-//			mappings[iTweenEvent.TweenType.MoveTo]["path"] = typeof(Vector3OrTransform[]);
+		mappings[iTweenEvent.TweenType.MoveTo]["path"] = typeof(Vector3OrTransformArray);
 		mappings[iTweenEvent.TweenType.MoveTo]["movetopath"] = typeof(bool);
 		mappings[iTweenEvent.TweenType.MoveTo]["x"] = typeof(float);
 		mappings[iTweenEvent.TweenType.MoveTo]["y"] = typeof(float);
