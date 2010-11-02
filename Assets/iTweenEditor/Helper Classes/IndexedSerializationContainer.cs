@@ -23,11 +23,10 @@ using UnityEngine;
 using System; 
 
 [Serializable]
-public class AudioClipSerializationContainer {
-
+public class IndexedSerializationContainer<T> {
 	int index;
 	
-	public AudioClipSerializationContainer(int i) {
+	public IndexedSerializationContainer(int i) {
 		index = i;
 	}
 	

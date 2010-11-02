@@ -259,31 +259,31 @@ public class iTweenEvent : MonoBehaviour{
 			}
 			else if(list[i] is Transform) {
 				transformList.Add((Transform)list[i]);
-				list[i] = new TransformSerializationContainer(transformList.Count - 1);
+				list[i] = new IndexedSerializationContainer<Transform>(transformList.Count - 1);
 			}
 			else if(list[i] is Transform[]) {
 				var originalValues = (Transform[])list[i];
-				var serializableValues = new TransformSerializationContainer[originalValues.Length];
+				var serializableValues = new IndexedSerializationContainer<Transform>[originalValues.Length];
 				for(var i2 = 0; i2 < originalValues.Length; ++i2) {
 					transformList.Add(originalValues[i2]);
-					serializableValues[i2] = new TransformSerializationContainer(transformList.Count - 1);
+					serializableValues[i2] = new IndexedSerializationContainer<Transform>(transformList.Count - 1);
 				}
 				list[i] = serializableValues;
 			}
 			else if(list[i] is GameObject) {
 				gameObjectList.Add((GameObject)list[i]);
-				list[i] = new GameObjectSerializationContainer(gameObjectList.Count - 1);
-			}
-			else if(list[i] is Color) {
-				list[i] = new ColorSerializationContainer((Color)list[i]);
+				list[i] = new IndexedSerializationContainer<GameObject>(gameObjectList.Count - 1);
 			}
 			else if(list[i] is AudioClip) {
 				audioClipList.Add((AudioClip)list[i]);
-				list[i] = new AudioClipSerializationContainer(audioClipList.Count - 1);
+				list[i] = new IndexedSerializationContainer<AudioClip>(audioClipList.Count - 1);
 			}
 			else if(list[i] is AudioSource) {
 				audioSourceList.Add((AudioSource)list[i]);
-				list[i] = new AudioSourceSerializationContainer(audioSourceList.Count - 1);
+				list[i] = new IndexedSerializationContainer<AudioSource>(audioSourceList.Count - 1);
+			}
+			else if(list[i] is Color) {
+				list[i] = new ColorSerializationContainer((Color)list[i]);
 			}
 		}
 		
@@ -308,28 +308,28 @@ public class iTweenEvent : MonoBehaviour{
 				}
 				list[i] = originalValues;
 			}
-			else if(list[i] is TransformSerializationContainer[]) {
-				var serializedValues = (TransformSerializationContainer[])list[i];
+			else if(list[i] is IndexedSerializationContainer<Transform>[]) {
+				var serializedValues = (IndexedSerializationContainer<Transform>[])list[i];
 				var originalValues = new Transform[serializedValues.Length];
 				for(var i2 = 0; i2 < serializedValues.Length; ++i2) {
-					originalValues[i2] = transforms[((TransformSerializationContainer)serializedValues[i2]).Index()];
+					originalValues[i2] = transforms[((IndexedSerializationContainer<Transform>)serializedValues[i2]).Index()];
 				}
 				list[i] = originalValues;
 			}
-			else if(list[i] is TransformSerializationContainer) {
-				list[i] = transforms[((TransformSerializationContainer)list[i]).Index()];
+			else if(list[i] is IndexedSerializationContainer<Transform>) {
+				list[i] = transforms[((IndexedSerializationContainer<Transform>)list[i]).Index()];
 			}
-			else if(list[i] is GameObjectSerializationContainer) {
-				list[i] = gameObjects[((GameObjectSerializationContainer)list[i]).Index()];
+			else if(list[i] is IndexedSerializationContainer<GameObject>) {
+				list[i] = gameObjects[((IndexedSerializationContainer<GameObject>)list[i]).Index()];
+			}
+			else if(list[i] is IndexedSerializationContainer<AudioClip>) {
+				list[i] = audioClips[((IndexedSerializationContainer<AudioClip>)list[i]).Index()];
+			}
+			else if(list[i] is IndexedSerializationContainer<AudioSource>) {
+				list[i] = audioSources[((IndexedSerializationContainer<AudioSource>)list[i]).Index()];
 			}
 			else if(list[i] is ColorSerializationContainer) {
 				list[i] = ((ColorSerializationContainer)list[i]).ToColor();
-			}
-			else if(list[i] is AudioClipSerializationContainer) {
-				list[i] = audioClips[((AudioClipSerializationContainer)list[i]).Index()];
-			}
-			else if(list[i] is AudioSourceSerializationContainer) {
-				list[i] = audioSources[((AudioSourceSerializationContainer)list[i]).Index()];
 			}
 		}
 	}
