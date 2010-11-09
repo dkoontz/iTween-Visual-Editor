@@ -96,9 +96,14 @@ public class iTweenEventDataEditor : Editor {
 			}
 		}
 		
-		GUILayout.Label("iTween Event Editor v0.2");
+		GUILayout.Label("iTween Event Editor v0.3");
 		EditorGUILayout.Separator();
  		
+		GUILayout.BeginHorizontal();
+			GUILayout.Label("Name");
+			evt.tweenName = EditorGUILayout.TextField(evt.tweenName);
+		GUILayout.EndHorizontal();
+		
 		GUILayout.BeginHorizontal();
 			evt.playAutomatically = GUILayout.Toggle(evt.playAutomatically, " Play Automatically");
 		GUILayout.EndHorizontal();

@@ -22,9 +22,12 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Linq;
+
+[System.Serializable]
+public class ArrayIndexes {
+	public int[] indexes;
+}
 
 public class iTweenEvent : MonoBehaviour{
 	public enum TweenType {
@@ -67,9 +70,22 @@ public class iTweenEvent : MonoBehaviour{
 		//ValueTo
 	}
 	
+	public string tweenName;
 	public bool playAutomatically = true;
 	public float delay = 0;
 	public iTweenEvent.TweenType type = iTweenEvent.TweenType.MoveTo;
+	
+	public static iTweenEvent GetEvent(GameObject obj, string name) {
+		var tweens = obj.GetComponents<iTweenEvent>();
+		if(tweens.Length > 0) {
+			var result = tweens.FirstOrDefault(tween => { return tween.tweenName == name; });
+			if(result != null) {
+				return result;
+			}
+		}
+		
+		throw new System.ArgumentException("No tween with the name '" + name + "' could be found on the GameObject named '" + obj.name + "'");
+	}
 	
 	public Dictionary<string, object> Values {
 		get { 
@@ -83,25 +99,60 @@ public class iTweenEvent : MonoBehaviour{
 			SerializeValues();
 		}
 	}
+
+	[SerializeField]
+	string[] keys;
 	
 	[SerializeField]
-	byte[] bytes;
+ 	int[] indexes;
 	
-	// Used to hold onto Dictionary entries that are Transforms, since we can't serialize them via BitStream or with .NET
+	[SerializeField]
+	string[] metadatas;
+	
+	[SerializeField]
+	int[] ints;
+	
+	[SerializeField]
+	float[] floats;
+	
+	[SerializeField]
+	bool[] bools;
+	
+	[SerializeField]
+	string[] strings;
+	
+	[SerializeField]
+	Vector3[] vector3s;
+	
+	[SerializeField]
+	Color[] colors;
+		
+	[SerializeField]
+	Space[] spaces;
+	
+	[SerializeField]
+	iTween.EaseType[] easeTypes;
+	
+	[SerializeField]
+	iTween.LoopType[] loopTypes;
+	
 	[SerializeField]
 	GameObject[] gameObjects;
 	
-	// Used to hold onto Dictionary entries that are Transforms, since we can't serialize them via BitStream or with .NET
 	[SerializeField]
 	Transform[] transforms;
 
-	// Used to hold onto Dictionary entries that are AudioClips, since we can't serialize them via BitStream or with .NET
 	[SerializeField]
 	AudioClip[] audioClips;
 	
-	// Used to hold onto Dictionary entries that are AudioSources, since we can't serialize them via BitStream or with .NET
 	[SerializeField]
 	AudioSource[] audioSources;
+	
+	[SerializeField]
+	ArrayIndexes[] vector3Arrays;
+	
+	[SerializeField]
+	ArrayIndexes[] transformArrays;
 	
 	Dictionary<string, object> values;
 	
@@ -236,130 +287,217 @@ public class iTweenEvent : MonoBehaviour{
 		}
 	}
 	
-	
-	void ReplaceNonSerializableTypes(object[] list) {
-		var transformList = new List<Transform>();
+	void SerializeValues() {
+		var keyList = new List<string>();
+		var indexList = new List<int>();
+		var metadataList = new List<string>();
+		
+		var intList = new List<int>();
+		var floatList = new List<float>();
+		var boolList = new List<bool>();
+		var stringList = new List<string>();
+		var vector3List = new List<Vector3>();
+		var colorList = new List<Color>();
+		var spaceList = new List<Space>();
+		var easeTypeList = new List<iTween.EaseType>();
+		var loopTypeList = new List<iTween.LoopType>();
 		var gameObjectList = new List<GameObject>();
+		var transformList = new List<Transform>();
 		var audioClipList = new List<AudioClip>();
 		var audioSourceList = new List<AudioSource>();
-		
-		for(var i = 0; i < list.Length; ++i) {
-			if(null == list[i]) { continue; }
+		var vector3ArrayList = new List<ArrayIndexes>();
+		var transformArrayList = new List<ArrayIndexes>();
 			
-			if(list[i] is Vector3) {
-				list[i] = new Vector3SerializationContainer((Vector3)list[i]);
+		foreach(var pair in values) {
+			var mappings = EventParamMappings.mappings[type];
+			var valueType = mappings[pair.Key];
+			if(typeof(int) == valueType) {
+				AddToList<int>(keyList, indexList, intList, metadataList, pair);
 			}
-			else if(list[i] is Vector3[]) {
-				var originalValues = (Vector3[])list[i];
-				var serializableValues = new Vector3SerializationContainer[originalValues.Length];
-				for(var i2 = 0; i2 < originalValues.Length; ++i2) {
-					serializableValues[i2] = new Vector3SerializationContainer(originalValues[i2]);
+			if(typeof(float) == valueType) {
+				AddToList<float>(keyList, indexList, floatList, metadataList, pair);
+			}
+			else if(typeof(bool) == valueType) {
+				AddToList<bool>(keyList, indexList, boolList, metadataList, pair);
+			}
+			else if(typeof(string) == valueType) {
+				AddToList<string>(keyList, indexList, stringList, metadataList, pair);
+			}
+			else if(typeof(Vector3) == valueType) {
+				AddToList<Vector3>(keyList, indexList, vector3List, metadataList, pair);
+			}
+			else if(typeof(Color) == valueType) {
+				AddToList<Color>(keyList, indexList, colorList, metadataList, pair);
+			}
+			else if(typeof(Space) == valueType) {
+				AddToList<Space>(keyList, indexList, spaceList, metadataList, pair);
+			}
+			else if(typeof(iTween.EaseType) == valueType) {
+				AddToList<iTween.EaseType>(keyList, indexList, easeTypeList, metadataList, pair);
+			}
+			else if(typeof(iTween.LoopType) == valueType) {
+				AddToList<iTween.LoopType>(keyList, indexList, loopTypeList, metadataList, pair);
+			}
+			else if(typeof(GameObject) == valueType) {
+				AddToList<GameObject>(keyList, indexList, gameObjectList, metadataList, pair);
+			}
+			else if(typeof(Transform) == valueType) {
+				AddToList<Transform>(keyList, indexList, transformList, metadataList, pair);
+			}
+			else if(typeof(AudioClip) == valueType) {
+				AddToList<AudioClip>(keyList, indexList, audioClipList, metadataList, pair);
+			}
+			else if(typeof(AudioSource) == valueType) {
+				AddToList<AudioSource>(keyList, indexList, audioSourceList, metadataList, pair);
+			}
+			else if(typeof(Vector3OrTransform) == valueType) {
+				if(pair.Value == null || typeof(Transform) == pair.Value.GetType()) {
+					AddToList<Transform>(keyList, indexList, transformList, metadataList, pair.Key, pair.Value, "t");
 				}
-				list[i] = serializableValues;
-			}
-			else if(list[i] is Transform) {
-				transformList.Add((Transform)list[i]);
-				list[i] = new IndexedSerializationContainer<Transform>(transformList.Count - 1);
-			}
-			else if(list[i] is Transform[]) {
-				var originalValues = (Transform[])list[i];
-				var serializableValues = new IndexedSerializationContainer<Transform>[originalValues.Length];
-				for(var i2 = 0; i2 < originalValues.Length; ++i2) {
-					transformList.Add(originalValues[i2]);
-					serializableValues[i2] = new IndexedSerializationContainer<Transform>(transformList.Count - 1);
+				else {
+					AddToList<Vector3>(keyList, indexList, vector3List, metadataList, pair.Key, pair.Value, "v");
 				}
-				list[i] = serializableValues;
 			}
-			else if(list[i] is GameObject) {
-				gameObjectList.Add((GameObject)list[i]);
-				list[i] = new IndexedSerializationContainer<GameObject>(gameObjectList.Count - 1);
-			}
-			else if(list[i] is AudioClip) {
-				audioClipList.Add((AudioClip)list[i]);
-				list[i] = new IndexedSerializationContainer<AudioClip>(audioClipList.Count - 1);
-			}
-			else if(list[i] is AudioSource) {
-				audioSourceList.Add((AudioSource)list[i]);
-				list[i] = new IndexedSerializationContainer<AudioSource>(audioSourceList.Count - 1);
-			}
-			else if(list[i] is Color) {
-				list[i] = new ColorSerializationContainer((Color)list[i]);
+			else if(typeof(Vector3OrTransformArray) == valueType) {
+				if(typeof(Vector3[]) == pair.Value.GetType()) {
+					var value = (Vector3[])pair.Value;
+					var vectorIndexes = new ArrayIndexes();
+					var indexArray = new int[value.Length];
+					for(var i = 0; i < value.Length; ++i) {
+						vector3List.Add((Vector3)value[i]);
+						indexArray[i] = vector3List.Count - 1;
+					}
+					
+					vectorIndexes.indexes = indexArray;
+					AddToList<ArrayIndexes>(keyList, indexList, vector3ArrayList, metadataList, pair.Key, vectorIndexes, "v");
+				}
+				else {
+					var value = (Transform[])pair.Value;
+					var transformIndexes = new ArrayIndexes();
+					var indexArray = new int[value.Length];
+					for(var i = 0; i < value.Length; ++i) {
+						transformList.Add((Transform)value[i]);
+						indexArray[i] = transformList.Count - 1;
+					}
+					
+					transformIndexes.indexes = indexArray;
+					AddToList<ArrayIndexes>(keyList, indexList, transformArrayList, metadataList, pair.Key, transformIndexes, "t");
+				}
 			}
 		}
 		
-		transforms = transformList.ToArray();
+		keys = keyList.ToArray();
+		indexes = indexList.ToArray();
+		metadatas = metadataList.ToArray();
+		ints = intList.ToArray();
+		floats = floatList.ToArray();
+		bools = boolList.ToArray();
+		strings = stringList.ToArray();
+		vector3s = vector3List.ToArray();
+		colors = colorList.ToArray();
+		spaces = spaceList.ToArray();
+		easeTypes = easeTypeList.ToArray();
+		loopTypes = loopTypeList.ToArray();
 		gameObjects = gameObjectList.ToArray();
+		transforms = transformList.ToArray();
 		audioClips = audioClipList.ToArray();
 		audioSources = audioSourceList.ToArray();
+		vector3Arrays = vector3ArrayList.ToArray();
+		transformArrays = transformArrayList.ToArray();
 	}
 	
-	void RestoreNonSerializableTypes(object[] list) {
-		for(var i = 0; i < list.Length; ++i) {
-			if(null == list[i]) { continue; }
-			
-			if(list[i] is Vector3SerializationContainer) {
-				list[i] = ((Vector3SerializationContainer)list[i]).ToVector3();
-			}
-			else if(list[i] is Vector3SerializationContainer[]) {
-				var serializedValues = (Vector3SerializationContainer[])list[i];
-				var originalValues = new Vector3[serializedValues.Length];
-				for(var i2 = 0; i2 < serializedValues.Length; ++i2) {
-					originalValues[i2] = serializedValues[i2].ToVector3();
-				}
-				list[i] = originalValues;
-			}
-			else if(list[i] is IndexedSerializationContainer<Transform>[]) {
-				var serializedValues = (IndexedSerializationContainer<Transform>[])list[i];
-				var originalValues = new Transform[serializedValues.Length];
-				for(var i2 = 0; i2 < serializedValues.Length; ++i2) {
-					originalValues[i2] = transforms[((IndexedSerializationContainer<Transform>)serializedValues[i2]).Index()];
-				}
-				list[i] = originalValues;
-			}
-			else if(list[i] is IndexedSerializationContainer<Transform>) {
-				list[i] = transforms[((IndexedSerializationContainer<Transform>)list[i]).Index()];
-			}
-			else if(list[i] is IndexedSerializationContainer<GameObject>) {
-				list[i] = gameObjects[((IndexedSerializationContainer<GameObject>)list[i]).Index()];
-			}
-			else if(list[i] is IndexedSerializationContainer<AudioClip>) {
-				list[i] = audioClips[((IndexedSerializationContainer<AudioClip>)list[i]).Index()];
-			}
-			else if(list[i] is IndexedSerializationContainer<AudioSource>) {
-				list[i] = audioSources[((IndexedSerializationContainer<AudioSource>)list[i]).Index()];
-			}
-			else if(list[i] is ColorSerializationContainer) {
-				list[i] = ((ColorSerializationContainer)list[i]).ToColor();
-			}
-		}
+	void AddToList<T>(List<string> keyList, List<int> indexList, IList<T> valueList, List<string> metadataList, KeyValuePair<string, object> pair) {
+		AddToList<T>(keyList, indexList, valueList, metadataList, pair.Key, pair.Value);
 	}
 	
-	void SerializeValues() {
-		var list = new object[values.Count * 2];
-		var keys = values.Keys.ToArray();
-		for(var i = 0; i < values.Count; ++i) {
-			list[i*2] = keys[i];
-			list[(i*2)+1] = values[keys[i]];
-		}
-		
-		ReplaceNonSerializableTypes(list);
-		
-		MemoryStream stream = new MemoryStream();
-		BinaryFormatter formatter = new BinaryFormatter();
-		formatter.Serialize(stream, list);
-		bytes = stream.ToArray();
+	void AddToList<T>(List<string> keyList, List<int> indexList, IList<T> valueList, List<string> metadataList, KeyValuePair<string, object> pair, string metadata) {
+		AddToList<T>(keyList, indexList, valueList, metadataList, pair.Key, pair.Value, metadata);
+	}
+	
+	void AddToList<T>(List<string> keyList, List<int> indexList, IList<T> valueList, List<string> metadataList, string key, object value) {
+		AddToList<T>(keyList, indexList, valueList, metadataList, key, value, null);
+	}
+	
+	void AddToList<T>(List<string> keyList, List<int> indexList, IList<T> valueList, List<string> metadataList, string key, object value, string metadata) {
+		keyList.Add(key);
+		valueList.Add((T)value);
+		indexList.Add(valueList.Count - 1);
+		metadataList.Add(metadata);
 	}
 	
 	void DeserializeValues() {
 		values = new Dictionary<string, object>();
 		
-		if(bytes != null && bytes.Length > 0) {
-			BinaryFormatter formatter = new BinaryFormatter();
-			var list = (object[])formatter.Deserialize(new MemoryStream(bytes));
-			RestoreNonSerializableTypes(list);
+		for(var i = 0; i < keys.Length; ++i) {
+			var mappings = EventParamMappings.mappings[type];
+			var valueType = mappings[keys[i]];
 			
-			for(var i = 0; i < list.Count(); i+=2) {
-				values.Add((string)list[i], list[i+1]);
+			if(typeof(int) == valueType) {
+				values.Add(keys[i], ints[indexes[i]]);
+			}
+			else if(typeof(float) == valueType) {
+				values.Add(keys[i], floats[indexes[i]]);
+			}
+			else if(typeof(bool) == valueType) {
+				values.Add(keys[i], bools[indexes[i]]);
+			}
+			else if(typeof(string) == valueType) {
+				values.Add(keys[i], strings[indexes[i]]);
+			}
+			else if(typeof(Vector3) == valueType) {
+				values.Add(keys[i], vector3s[indexes[i]]);
+			}
+			else if(typeof(Color) == valueType) {
+				values.Add(keys[i], colors[indexes[i]]);
+			}
+			else if(typeof(Space) == valueType) {
+				values.Add(keys[i], spaces[indexes[i]]);
+			}
+			else if(typeof(iTween.EaseType) == valueType) {
+				values.Add(keys[i], easeTypes[indexes[i]]);
+			}
+			else if(typeof(iTween.LoopType) == valueType) {
+				values.Add(keys[i], loopTypes[indexes[i]]);
+			}
+			else if(typeof(GameObject) == valueType) {
+				values.Add(keys[i], gameObjects[indexes[i]]);
+			}
+			else if(typeof(Transform) == valueType) {
+				values.Add(keys[i], transforms[indexes[i]]);
+			}
+			else if(typeof(AudioClip) == valueType) {
+				values.Add(keys[i], audioClips[indexes[i]]);
+			}
+			else if(typeof(AudioSource) == valueType) {
+				values.Add(keys[i], audioSources[indexes[i]]);
+			}
+			else if(typeof(Vector3OrTransform) == valueType) {
+				if("v" == metadatas[i]) {
+					values.Add(keys[i], vector3s[indexes[i]]);
+				}
+				else {
+					values.Add(keys[i], transforms[indexes[i]]);
+				}
+			}
+			else if(typeof(Vector3OrTransformArray) == valueType) {
+				if("v" == metadatas[i]) {
+					var arrayIndexes = vector3Arrays[indexes[i]];
+					var vectorArray = new Vector3[arrayIndexes.indexes.Length];
+					for(var idx = 0; idx < arrayIndexes.indexes.Length; ++idx) {
+						vectorArray[idx] = vector3s[arrayIndexes.indexes[idx]];
+					}
+					
+					values.Add(keys[i], vectorArray);
+				}
+				else {
+					var arrayIndexes = transformArrays[indexes[i]];
+					var transformArray = new Transform[arrayIndexes.indexes.Length];
+					for(var idx = 0; idx < arrayIndexes.indexes.Length; ++idx) {
+						transformArray[idx] = transforms[arrayIndexes.indexes[idx]];
+					}
+					
+					values.Add(keys[i], transformArray);
+				}
 			}
 		}
 	}
