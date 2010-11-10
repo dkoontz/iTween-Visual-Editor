@@ -428,6 +428,10 @@ public class iTweenEvent : MonoBehaviour{
 	void DeserializeValues() {
 		values = new Dictionary<string, object>();
 		
+		if(null == keys) {
+			return;
+		}
+		
 		for(var i = 0; i < keys.Length; ++i) {
 			var mappings = EventParamMappings.mappings[type];
 			var valueType = mappings[keys[i]];
