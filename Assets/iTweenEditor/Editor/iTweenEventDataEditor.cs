@@ -41,6 +41,20 @@ public class iTweenEventDataEditor : Editor {
 		}
     }
 	
+	[MenuItem("Component/iTween/Turn on iTweenEvent icons")]
+	static void EnableiTweenEventIcon () {
+		foreach(var o in GameObject.FindObjectsOfType(typeof(iTweenEvent))) {
+			((iTweenEvent)o).showIconInInspector = true;
+		}
+    }
+	
+	[MenuItem("Component/iTween/Turn off iTweenEvent icons")]
+	static void DisableiTweenEventIcon () {
+		foreach(var o in GameObject.FindObjectsOfType(typeof(iTweenEvent))) {
+			((iTweenEvent)o).showIconInInspector = false;
+		}
+    }
+	
 	public void OnEnable() {
 		var evt = (iTweenEvent)target;
 		foreach(var key in EventParamMappings.mappings[evt.type].Keys) {
@@ -96,12 +110,16 @@ public class iTweenEventDataEditor : Editor {
 			}
 		}
 		
-		GUILayout.Label("iTween Event Editor v0.3");
+		GUILayout.Label("iTween Event Editor v0.4");
 		EditorGUILayout.Separator();
  		
 		GUILayout.BeginHorizontal();
 			GUILayout.Label("Name");
 			evt.tweenName = EditorGUILayout.TextField(evt.tweenName);
+		GUILayout.EndHorizontal();
+		
+		GUILayout.BeginHorizontal();
+			evt.showIconInInspector = GUILayout.Toggle(evt.showIconInInspector, " Show Icon In Scene");
 		GUILayout.EndHorizontal();
 		
 		GUILayout.BeginHorizontal();
@@ -247,7 +265,6 @@ public class iTweenEventDataEditor : Editor {
 				propertiesEnabled[key] = false;
 				values.Remove(key);
 			}
-			
 			
 			EditorGUILayout.EndToggleGroup();
 			GUILayout.EndHorizontal();

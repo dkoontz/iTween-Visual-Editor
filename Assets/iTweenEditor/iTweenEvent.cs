@@ -70,10 +70,11 @@ public class iTweenEvent : MonoBehaviour{
 		//ValueTo
 	}
 	
-	public string tweenName;
+	public string tweenName = "";
 	public bool playAutomatically = true;
 	public float delay = 0;
 	public iTweenEvent.TweenType type = iTweenEvent.TweenType.MoveTo;
+	public bool showIconInInspector = true;
 	
 	public static iTweenEvent GetEvent(GameObject obj, string name) {
 		var tweens = obj.GetComponents<iTweenEvent>();
@@ -164,6 +165,12 @@ public class iTweenEvent : MonoBehaviour{
 	
 	public void Play() {
 		StartCoroutine(StartEvent());
+	}
+	
+	public void OnDrawGizmos() {
+		if(showIconInInspector) {
+			Gizmos.DrawIcon(transform.position, "iTweenIcon.tif");
+		}
 	}
 	
 	IEnumerator StartEvent() {
