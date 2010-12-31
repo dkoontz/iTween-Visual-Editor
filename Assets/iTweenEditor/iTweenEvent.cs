@@ -155,6 +155,9 @@ public class iTweenEvent : MonoBehaviour{
 	[SerializeField]
 	ArrayIndexes[] transformArrays;
 	
+	[SerializeField]
+	iTweenPath[] paths;
+	
 	Dictionary<string, object> values;
 	
 	public void Start() {
@@ -177,7 +180,12 @@ public class iTweenEvent : MonoBehaviour{
 		yield return new WaitForSeconds(delay);
 		var optionsHash = new Hashtable();
 		foreach(var pair in Values) {
-			optionsHash.Add(pair.Key, pair.Value);
+			if("path" == pair.Key) {
+				optionsHash.Add(pair.Key, iTweenPath.GetPath((string)pair.Value));
+			}
+			else {
+				optionsHash.Add(pair.Key, pair.Value);
+			}
 		}
 		
 		switch(type) {
@@ -378,7 +386,7 @@ public class iTweenEvent : MonoBehaviour{
 					vectorIndexes.indexes = indexArray;
 					AddToList<ArrayIndexes>(keyList, indexList, vector3ArrayList, metadataList, pair.Key, vectorIndexes, "v");
 				}
-				else {
+				else if(typeof(Transform[]) == pair.Value.GetType()) {
 					var value = (Transform[])pair.Value;
 					var transformIndexes = new ArrayIndexes();
 					var indexArray = new int[value.Length];
@@ -389,6 +397,10 @@ public class iTweenEvent : MonoBehaviour{
 					
 					transformIndexes.indexes = indexArray;
 					AddToList<ArrayIndexes>(keyList, indexList, transformArrayList, metadataList, pair.Key, transformIndexes, "t");
+				}
+				else if(typeof(string) == pair.Value.GetType())
+				{
+					AddToList<string>(keyList, indexList, stringList, metadataList, pair.Key, pair.Value, "p");
 				}
 			}
 		}
@@ -486,7 +498,7 @@ public class iTweenEvent : MonoBehaviour{
 				if("v" == metadatas[i]) {
 					values.Add(keys[i], vector3s[indexes[i]]);
 				}
-				else {
+				else if("t" == metadatas[i]) {
 					values.Add(keys[i], transforms[indexes[i]]);
 				}
 			}
@@ -500,7 +512,7 @@ public class iTweenEvent : MonoBehaviour{
 					
 					values.Add(keys[i], vectorArray);
 				}
-				else {
+				else if("t" == metadatas[i]) {
 					var arrayIndexes = transformArrays[indexes[i]];
 					var transformArray = new Transform[arrayIndexes.indexes.Length];
 					for(var idx = 0; idx < arrayIndexes.indexes.Length; ++idx) {
@@ -508,6 +520,9 @@ public class iTweenEvent : MonoBehaviour{
 					}
 					
 					values.Add(keys[i], transformArray);
+				}
+				else if("p" == metadatas[i]) {
+					values.Add(keys[i], strings[indexes[i]]);
 				}
 			}
 		}

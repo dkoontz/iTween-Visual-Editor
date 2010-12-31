@@ -1,5 +1,8 @@
 // Copyright (c) 2009 David Koontz
 // Please direct any bugs/comments/suggestions to david@koontzfamily.org
+//
+// Thanks to gabison for his code submission that lead to the integration with the 
+// iTween visual path editor.
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +33,7 @@ using System.Linq;
 
 [CustomEditor(typeof(iTweenEvent))]
 public class iTweenEventDataEditor : Editor {
+		
 	Dictionary<string, object> values;
 	Dictionary<string, bool> propertiesEnabled = new Dictionary<string, bool>();
 	iTweenEvent.TweenType previousType;
@@ -105,12 +109,16 @@ public class iTweenEventDataEditor : Editor {
 					val.vectorArray = (Vector3[])values[key];
 					val.selected = Vector3OrTransformArray.vector3Selected;
 				}
+				else if(typeof(string) == values[key].GetType()) {
+					val.pathName = (string)values[key];
+					val.selected = Vector3OrTransformArray.iTweenPathSelected;
+				}
 				
 				values[key] = val;
 			}
 		}
 		
-		GUILayout.Label("iTween Event Editor v0.4");
+		GUILayout.Label("iTween Event Editor v0.5");
 		EditorGUILayout.Separator();
  		
 		GUILayout.BeginHorizontal();
@@ -199,9 +207,8 @@ public class iTweenEventDataEditor : Editor {
 						values[key] = new Vector3OrTransformArray();
 					}
 					var val = (Vector3OrTransformArray)values[key];
-					
-					val.selected = GUILayout.SelectionGrid(val.selected, Vector3OrTransformArray.choices, 2);
-	
+					val.selected = GUILayout.SelectionGrid(val.selected, Vector3OrTransformArray.choices, Vector3OrTransformArray.choices.Length);
+
 					if(Vector3OrTransformArray.vector3Selected == val.selected) {
 						if(null == val.vectorArray) {
 							val.vectorArray = new Vector3[0];
@@ -220,7 +227,7 @@ public class iTweenEventDataEditor : Editor {
 							val.vectorArray[i] = EditorGUILayout.Vector3Field("", val.vectorArray[i]);
 						}
 					}
-					else {
+					else if(Vector3OrTransformArray.transformSelected == val.selected) {
 						if(null == val.transformArray) {
 							val.transformArray = new Transform[0];
 						}
@@ -237,6 +244,17 @@ public class iTweenEventDataEditor : Editor {
 						for(var i = 0; i < val.transformArray.Length; ++i) {
 							val.transformArray[i] = (Transform)EditorGUILayout.ObjectField(val.transformArray[i], typeof(Transform));
 						}
+					}
+					else if(Vector3OrTransformArray.iTweenPathSelected == val.selected) {
+						var index = 0;
+						var paths = evt.GetComponents<iTweenPath>();
+						for(var i = 0; i < paths.Length; ++i) {
+							if(paths[i].pathName == val.pathName) {
+								index = i;
+							}
+						}
+						index = EditorGUILayout.Popup(index, evt.GetComponents<iTweenPath>().Select(path => path.pathName).ToArray());
+						val.pathName = paths[index].pathName;
 					}
 					values[key] = val;
 				}
@@ -288,8 +306,11 @@ public class iTweenEventDataEditor : Editor {
 				if(Vector3OrTransformArray.vector3Selected == val.selected) {
 					values[key] = val.vectorArray;
 				}
-				else {
+				else if(Vector3OrTransformArray.transformSelected == val.selected) {
 					values[key] = val.transformArray;
+				}
+				else if(Vector3OrTransformArray.iTweenPathSelected == val.selected) {
+					values[key] = val.pathName;
 				}
 			}
 		}
