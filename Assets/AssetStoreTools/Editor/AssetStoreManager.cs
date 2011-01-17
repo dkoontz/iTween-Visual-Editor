@@ -37,7 +37,9 @@ public class AssetStoreManager : EditorWindow {
 	
 	static private AssetStoreManagerInternal the() {
         if (dptr == null) {
-			dptr = new AssetStoreManagerInternal(typeof(AssetStorePackageConfigure), typeof(TermsViewer));
+			dptr = new AssetStoreManagerInternal(typeof(AssetStorePackageConfigure), 
+			                                     typeof(TermsViewer), 
+			                                     typeof(SubmitDialog));
 		}
 		return dptr;
 	}
