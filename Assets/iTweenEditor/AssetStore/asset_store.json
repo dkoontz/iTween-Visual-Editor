@@ -1,0 +1,11 @@
+{
+	"publisher_id": 0,
+	"publisher_package_id": 183,
+	"title": "iTween Visual Editor",
+	"description": "The iTween Visual Editor is a Unity 3, editor component that allows you to set up almost any iTween tween visually vs requiring code. So you can replace this\n\niTween.MoveTo(gameObject,{\"x\":10,\"time\":4,\"looptype\":\"loop\"});\n\nwith a nice Unity inspector view.\n\nFor more information and an example project please visit the <a href=\"http://dkoontz.wordpress.com/itween-visual-editor/\">project page</a>.",
+	"changes": "Initial release.",
+	"version_name": "0.5",
+	"category": 3,
+	"recommended_features": [],
+	"required_features": []
+}

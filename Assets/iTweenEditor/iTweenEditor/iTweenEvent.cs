@@ -177,7 +177,8 @@ public class iTweenEvent : MonoBehaviour{
 	}
 	
 	IEnumerator StartEvent() {
-		yield return new WaitForSeconds(delay);
+		if(delay > 0) yield return new WaitForSeconds(delay);
+		
 		var optionsHash = new Hashtable();
 		foreach(var pair in Values) {
 			if("path" == pair.Key) {

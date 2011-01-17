@@ -59,6 +59,18 @@ public class iTweenEventDataEditor : Editor {
 		}
     }
 	
+	[MenuItem("Component/iTween/Prepare Visual Editor for Javascript usage")]
+	static void CopyFilesForJavascriptUsage() {
+		if(Directory.Exists(Application.dataPath + "/iTweenEditor/iTweenEditor")) {
+			FileUtil.MoveFileOrDirectory(Application.dataPath + "/iTweenEditor/iTweenEditor/Editor", Application.dataPath + "/iTweenEditor/Editor");
+			FileUtil.MoveFileOrDirectory(Application.dataPath + "/iTweenEditor/iTweenEditor/iTweenEvent.cs", Application.dataPath + "/Plugins/iTweenEvent.cs");
+			FileUtil.MoveFileOrDirectory(Application.dataPath + "/iTweenEditor/iTweenEditor/Helper Classes", Application.dataPath + "/Plugins/Helper Classes");
+			FileUtil.MoveFileOrDirectory(Application.dataPath + "/iTweenEditor/Gizmos/iTweenIcon.png", Application.dataPath + "/Gizmos/iTweenIcon.png");
+			FileUtil.MoveFileOrDirectory(Application.dataPath + "/iTweenEditor/Plugins/iTween.cs", Application.dataPath + "/Plugins/iTween.cs");
+			FileUtil.MoveFileOrDirectory(Application.dataPath + "/iTweenEditor/Plugins/iTweenPath.cs", Application.dataPath + "/Plugins/iTweenPath.cs");
+		}
+	}
+	
 	public void OnEnable() {
 		var evt = (iTweenEvent)target;
 		foreach(var key in EventParamMappings.mappings[evt.type].Keys) {
@@ -118,7 +130,7 @@ public class iTweenEventDataEditor : Editor {
 			}
 		}
 		
-		GUILayout.Label("iTween Event Editor v0.5");
+		GUILayout.Label("iTween Event Editor v0.5.1");
 		EditorGUILayout.Separator();
  		
 		GUILayout.BeginHorizontal();
@@ -247,13 +259,13 @@ public class iTweenEventDataEditor : Editor {
 					}
 					else if(Vector3OrTransformArray.iTweenPathSelected == val.selected) {
 						var index = 0;
-						var paths = evt.GetComponents<iTweenPath>();
+						var paths = (GameObject.FindObjectsOfType(typeof(iTweenPath)) as iTweenPath[]);
 						for(var i = 0; i < paths.Length; ++i) {
 							if(paths[i].pathName == val.pathName) {
 								index = i;
 							}
 						}
-						index = EditorGUILayout.Popup(index, evt.GetComponents<iTweenPath>().Select(path => path.pathName).ToArray());
+						index = EditorGUILayout.Popup(index, (GameObject.FindObjectsOfType(typeof(iTweenPath)) as iTweenPath[]).Select(path => path.pathName).ToArray());
 						val.pathName = paths[index].pathName;
 					}
 					values[key] = val;
