@@ -148,7 +148,7 @@ public class iTweenEventDataEditor : Editor {
 			}
 		}
 		
-		GUILayout.Label("iTween Event Editor v0.5.1");
+		GUILayout.Label("iTween Event Editor v0.5.2");
 		EditorGUILayout.Separator();
  		
 		GUILayout.BeginHorizontal();
@@ -278,13 +278,20 @@ public class iTweenEventDataEditor : Editor {
 					else if(Vector3OrTransformArray.iTweenPathSelected == val.selected) {
 						var index = 0;
 						var paths = (GameObject.FindObjectsOfType(typeof(iTweenPath)) as iTweenPath[]);
-						for(var i = 0; i < paths.Length; ++i) {
-							if(paths[i].pathName == val.pathName) {
-								index = i;
-							}
+						if(0 == paths.Length) {
+							val.pathName = "";
+							GUILayout.Label("No paths are defined");
 						}
-						index = EditorGUILayout.Popup(index, (GameObject.FindObjectsOfType(typeof(iTweenPath)) as iTweenPath[]).Select(path => path.pathName).ToArray());
-						val.pathName = paths[index].pathName;
+						else {
+							for(var i = 0; i < paths.Length; ++i) {
+								if(paths[i].pathName == val.pathName) {
+									index = i;
+								}
+							}
+							index = EditorGUILayout.Popup(index, (GameObject.FindObjectsOfType(typeof(iTweenPath)) as iTweenPath[]).Select(path => path.pathName).ToArray());	
+							
+							val.pathName = paths[index].pathName;
+						}
 					}
 					values[key] = val;
 				}

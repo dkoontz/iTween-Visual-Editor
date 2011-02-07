@@ -1,8 +1,12 @@
-iTween Visual Editor version 0.5.1
+iTween Visual Editor version 0.5.2
 
 After installation, if you have a Javascript based project it is highly recommended that you run the "Component/iTween/Prepare Visual Editor for Javascript Usage" command. This will copy files into your Plugins directory which is necessary for the visual editor events to be called from Javascript. C# based projects require no further configuration.
 
 Release History ===============
+
+0.5.2 ====
+
+Fixed a problem with Vector3 or Transform paths introduced when implemented path support.
 
 0.5.1 ====
 

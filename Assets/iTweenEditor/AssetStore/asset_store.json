@@ -3,8 +3,8 @@
 	"publisher_package_id": 183,
 	"title": "iTween Visual Editor",
 	"description": "The iTween Visual Editor is a Unity 3, editor component that allows you to set up almost any iTween tween visually vs requiring code. So you can replace this\n\niTween.MoveTo(gameObject,{\"x\":10,\"time\":4,\"looptype\":\"loop\"});\n\nwith a nice Unity inspector view.\n\nFor more information and an example project please visit the <a href=\"http://dkoontz.wordpress.com/itween-visual-editor/\">project page</a>.",
-	"changes": "Added iTween menu item to move files into the correct position for Javascript based projects.  Fixed bug with delay of 0 seconds still pausing slightly before beginning tween. Changed visual path editor selection list to use global listing instead of just paths attached to the same GameObject.",
-	"version_name": "0.5.1",
+	"changes": "Vector3 and Transform paths are now working again (broken by changes in 0.5.1).",
+	"version_name": "0.5.2",
 	"category": 3,
 	"recommended_features": [],
 	"required_features": []
