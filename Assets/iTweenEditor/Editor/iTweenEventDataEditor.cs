@@ -148,7 +148,7 @@ public class iTweenEventDataEditor : Editor {
 			}
 		}
 		
-		GUILayout.Label("iTween Event Editor v0.5.2");
+		GUILayout.Label("iTween Event Editor v0.5.3");
 		EditorGUILayout.Separator();
  		
 		GUILayout.BeginHorizontal();
@@ -178,6 +178,7 @@ public class iTweenEventDataEditor : Editor {
 			evt.type = (iTweenEvent.TweenType)EditorGUILayout.EnumPopup(evt.type);
 		GUILayout.EndHorizontal();
 		
+		// If switching tween types, reset all inputs to off
 		if(evt.type != previousType) {
 			foreach(var key in EventParamMappings.mappings[evt.type].Keys) {
 				propertiesEnabled[key] = false;
@@ -192,10 +193,8 @@ public class iTweenEventDataEditor : Editor {
 			var key = pair.Key;
 			
 			GUILayout.BeginHorizontal();
-			
-			if(EditorGUILayout.BeginToggleGroup(key, propertiesEnabled[key])) {
-				propertiesEnabled[key] = true;
-				
+			propertiesEnabled[key] = EditorGUILayout.BeginToggleGroup(key, propertiesEnabled[key]);
+			if(propertiesEnabled[key]) {
 				GUILayout.BeginVertical();
 			
 				if(typeof(string) == pair.Value) {
@@ -208,7 +207,10 @@ public class iTweenEventDataEditor : Editor {
 					values[key] = EditorGUILayout.IntField(values.ContainsKey(key) ? (int)values[key] : 0);
 				}
 				else if(typeof(bool) == pair.Value) {
-					values[key] = propertiesEnabled[key];
+					GUILayout.BeginHorizontal();
+						GUILayout.Label("True");
+						values[key] = EditorGUILayout.Toggle(values.ContainsKey(key) ? (bool)values[key] : false);
+					GUILayout.EndHorizontal();
 				}
 				else if(typeof(GameObject) == pair.Value) {
 					values[key] = EditorGUILayout.ObjectField(values.ContainsKey(key) ? (GameObject)values[key] : null, typeof(GameObject));
@@ -317,7 +319,6 @@ public class iTweenEventDataEditor : Editor {
 				GUILayout.EndVertical();
 			}
 			else {
-				propertiesEnabled[key] = false;
 				values.Remove(key);
 			}
 			
