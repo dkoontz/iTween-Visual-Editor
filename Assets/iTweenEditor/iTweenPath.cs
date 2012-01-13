@@ -12,11 +12,11 @@ public class iTweenPath : MonoBehaviour
 	public static Dictionary<string, iTweenPath> paths = new Dictionary<string, iTweenPath>();
 	public bool initialized = false;
 	public string initialName = "";
-	
+
 	void OnEnable(){
-		paths.Add(pathName.ToLower(), this);
+		paths[pathName.ToLower()] = this;
 	}
-	
+
 	void OnDrawGizmosSelected(){
 		if(enabled) { // dkoontz
 			if(nodes.Count > 0){
@@ -24,7 +24,7 @@ public class iTweenPath : MonoBehaviour
 			}
 		} // dkoontz
 	}
-	
+
 	public static Vector3[] GetPath(string requestedName){
 		requestedName = requestedName.ToLower();
 		if(paths.ContainsKey(requestedName)){
