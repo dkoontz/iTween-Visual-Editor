@@ -1,19 +1,19 @@
 // Copyright (c) 2009 David Koontz
 // Please direct any bugs/comments/suggestions to david@koontzfamily.org
 //
-// Thanks to Gabriel Gheorghiu (gabison@gmail.com) for his code submission 
+// Thanks to Gabriel Gheorghiu (gabison@gmail.com) for his code submission
 // that lead to the integration with the iTween visual path editor.
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -30,42 +30,78 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Linq;
+using System;
+using System.Reflection;
+using Object = System.Object;
 
 [CustomEditor(typeof(iTweenEvent))]
 public class iTweenEventDataEditor : Editor {
-		
+    class ObjectFieldHelper
+    {
+		bool isObsolete = false;
+		MethodInfo mInfo;
+	    public ObjectFieldHelper()
+	    {
+			string[] v = Application.unityVersion.Substring(0, Application.unityVersion.Length-2).Split('.');
+
+			if (int.Parse(v[0]) > 2 && int.Parse(v[1]) > 3)
+				{
+					mInfo = typeof(EditorGUILayout).GetMethod("ObjectField", new Type[] { typeof(Object), typeof(Type), typeof(Boolean) });
+					isObsolete = true;
+				}
+			else
+				{
+					mInfo = typeof(EditorGUILayout).GetMethod("ObjectField", new Type[] { typeof(Object), typeof(Type) });
+				}
+	    }
+		public Object ObjectField(Object obj, System.Type type)
+		{
+			if (isObsolete)
+				return mInfo.Invoke(null, new Object[]{ obj, type, true });
+			else
+				return mInfo.Invoke(null, new Object[]{ obj, type });
+		}
+    }
+
+    static ObjectFieldHelper helper = new ObjectFieldHelper();
+
+	static Object ObjectField(Object obj, System.Type type)
+	{
+		return helper.ObjectField(obj, type);
+	}
+
 	Dictionary<string, object> values;
 	Dictionary<string, bool> propertiesEnabled = new Dictionary<string, bool>();
 	iTweenEvent.TweenType previousType;
-	
+
 	[MenuItem("Component/iTween/iTweenEvent")]
     static void AddiTweenEvent () {
 		if(Selection.activeGameObject != null) {
 			Selection.activeGameObject.AddComponent(typeof(iTweenEvent));
 		}
     }
-	
+
 	[MenuItem("Component/iTween/Turn on iTweenEvent icons")]
 	static void EnableiTweenEventIcon () {
 		foreach(var o in GameObject.FindObjectsOfType(typeof(iTweenEvent))) {
 			((iTweenEvent)o).showIconInInspector = true;
 		}
     }
-	
+
 	[MenuItem("Component/iTween/Turn off iTweenEvent icons")]
 	static void DisableiTweenEventIcon () {
 		foreach(var o in GameObject.FindObjectsOfType(typeof(iTweenEvent))) {
 			((iTweenEvent)o).showIconInInspector = false;
 		}
     }
-	
+
 	[MenuItem("Component/iTween/Prepare Visual Editor for Javascript Usage")]
 	static void CopyFilesForJavascriptUsage() {
 		if(Directory.Exists(Application.dataPath + "/iTweenEditor/Helper Classes")) {
 			if(!Directory.Exists(Application.dataPath + "/Plugins")) {
 				Directory.CreateDirectory(Application.dataPath + "/Plugins");
 			}
-			
+
 			if(!Directory.Exists(Application.dataPath + "/Plugins/iTweenEditor")) {
 				Directory.CreateDirectory(Application.dataPath + "/Plugins/iTweenEditor");
 			}
@@ -73,40 +109,40 @@ public class iTweenEventDataEditor : Editor {
 			FileUtil.MoveFileOrDirectory(Application.dataPath + "/iTweenEditor/iTweenEvent.cs", Application.dataPath + "/Plugins/iTweenEvent.cs");
 			FileUtil.MoveFileOrDirectory(Application.dataPath + "/iTweenEditor/iTween.cs", Application.dataPath + "/Plugins/iTween.cs");
 			FileUtil.MoveFileOrDirectory(Application.dataPath + "/iTweenEditor/iTweenPath.cs", Application.dataPath + "/Plugins/iTweenPath.cs");
-			
+
 			AssetDatabase.Refresh();
 		}
 		else {
 			EditorUtility.DisplayDialog("Can't move files", "Your files have already been moved", "Ok");
 		}
 	}
-	
+
 	public void OnEnable() {
 		var evt = (iTweenEvent)target;
 		foreach(var key in EventParamMappings.mappings[evt.type].Keys) {
 			propertiesEnabled[key] = false;
 		}
 		previousType = evt.type;
-		
+
 		if(!Directory.Exists(Application.dataPath + "/Gizmos")) {
 			Directory.CreateDirectory(Application.dataPath + "/Gizmos");
 		}
-			
+
 		if(!File.Exists(Application.dataPath + "/Gizmos/iTweenIcon.tif")) {
 			FileUtil.CopyFileOrDirectory(Application.dataPath + "/iTweenEditor/Gizmos/iTweenIcon.tif", Application.dataPath + "/Gizmos/iTweenIcon.tif");
 		}
 	}
-	
+
 	public override void OnInspectorGUI() {
 		var evt = (iTweenEvent)target;
 		values = evt.Values;
 		var keys = values.Keys.ToArray();
-		
+
 		foreach(var key in keys) {
 			propertiesEnabled[key] = true;
 			if(typeof(Vector3OrTransform) == EventParamMappings.mappings[evt.type][key]) {
 				var val = new Vector3OrTransform();
-				
+
 				if(null == values[key] || typeof(Transform) == values[key].GetType()) {
 					if(null == values[key]) {
 						val.transform = null;
@@ -120,12 +156,12 @@ public class iTweenEventDataEditor : Editor {
 					val.vector = (Vector3)values[key];
 					val.selected = Vector3OrTransform.vector3Selected;
 				}
-				
+
 				values[key] = val;
 			}
 			if(typeof(Vector3OrTransformArray) == EventParamMappings.mappings[evt.type][key]) {
 				var val = new Vector3OrTransformArray();
-				
+
 				if(null == values[key] || typeof(Transform[]) == values[key].GetType()) {
 					if(null == values[key]) {
 						val.transformArray = null;
@@ -143,41 +179,41 @@ public class iTweenEventDataEditor : Editor {
 					val.pathName = (string)values[key];
 					val.selected = Vector3OrTransformArray.iTweenPathSelected;
 				}
-				
+
 				values[key] = val;
 			}
 		}
-		
+
 		GUILayout.Label("iTween Event Editor v0.5.3");
 		EditorGUILayout.Separator();
- 		
+
 		GUILayout.BeginHorizontal();
 			GUILayout.Label("Name");
 			evt.tweenName = EditorGUILayout.TextField(evt.tweenName);
 		GUILayout.EndHorizontal();
-		
+
 		GUILayout.BeginHorizontal();
 			evt.showIconInInspector = GUILayout.Toggle(evt.showIconInInspector, " Show Icon In Scene");
 		GUILayout.EndHorizontal();
-		
+
 		GUILayout.BeginHorizontal();
 			evt.playAutomatically = GUILayout.Toggle(evt.playAutomatically, " Play Automatically");
 		GUILayout.EndHorizontal();
-		
+
 		if(evt.playAutomatically) {
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("Delay");
 			evt.delay = float.Parse(GUILayout.TextField(evt.delay.ToString()));
 			GUILayout.EndHorizontal();
 		}
-		
+
 		EditorGUILayout.Separator();
-		
+
 		GUILayout.BeginHorizontal();
 			GUILayout.Label("Event Type");
 			evt.type = (iTweenEvent.TweenType)EditorGUILayout.EnumPopup(evt.type);
 		GUILayout.EndHorizontal();
-		
+
 		// If switching tween types, reset all inputs to off
 		if(evt.type != previousType) {
 			foreach(var key in EventParamMappings.mappings[evt.type].Keys) {
@@ -187,16 +223,16 @@ public class iTweenEventDataEditor : Editor {
 			previousType = evt.type;
 			return;
 		}
-		
+
 		var properties = EventParamMappings.mappings[evt.type];
 		foreach(var pair in properties) {
 			var key = pair.Key;
-			
+
 			GUILayout.BeginHorizontal();
 			propertiesEnabled[key] = EditorGUILayout.BeginToggleGroup(key, propertiesEnabled[key]);
 			if(propertiesEnabled[key]) {
 				GUILayout.BeginVertical();
-			
+
 				if(typeof(string) == pair.Value) {
 					values[key] = EditorGUILayout.TextField(values.ContainsKey(key) ? (string)values[key] : "");
 				}
@@ -213,7 +249,7 @@ public class iTweenEventDataEditor : Editor {
 					GUILayout.EndHorizontal();
 				}
 				else if(typeof(GameObject) == pair.Value) {
-					values[key] = EditorGUILayout.ObjectField(values.ContainsKey(key) ? (GameObject)values[key] : null, typeof(GameObject));
+					values[key] = ObjectField(values.ContainsKey(key) ? (GameObject)values[key] : null, typeof(GameObject));
 				}
 				else if(typeof(Vector3) == pair.Value) {
 					values[key] = EditorGUILayout.Vector3Field("", values.ContainsKey(key) ? (Vector3)values[key] : Vector3.zero);
@@ -223,14 +259,14 @@ public class iTweenEventDataEditor : Editor {
 						values[key] = new Vector3OrTransform();
 					}
 					var val = (Vector3OrTransform)values[key];
-					
+
 					val.selected = GUILayout.SelectionGrid(val.selected, Vector3OrTransform.choices, 2);
-	
+
 					if(Vector3OrTransform.vector3Selected == val.selected) {
 						val.vector = EditorGUILayout.Vector3Field("", val.vector);
 					}
 					else {
-						val.transform = (Transform)EditorGUILayout.ObjectField(val.transform, typeof(Transform));
+						val.transform = (Transform)ObjectField(val.transform, typeof(Transform));
 					}
 					values[key] = val;
 				}
@@ -274,7 +310,7 @@ public class iTweenEventDataEditor : Editor {
 							val.transformArray = resizedArray;
 						}
 						for(var i = 0; i < val.transformArray.Length; ++i) {
-							val.transformArray[i] = (Transform)EditorGUILayout.ObjectField(val.transformArray[i], typeof(Transform));
+							val.transformArray[i] = (Transform)ObjectField(val.transformArray[i], typeof(Transform));
 						}
 					}
 					else if(Vector3OrTransformArray.iTweenPathSelected == val.selected) {
@@ -290,8 +326,8 @@ public class iTweenEventDataEditor : Editor {
 									index = i;
 								}
 							}
-							index = EditorGUILayout.Popup(index, (GameObject.FindObjectsOfType(typeof(iTweenPath)) as iTweenPath[]).Select(path => path.pathName).ToArray());	
-							
+							index = EditorGUILayout.Popup(index, (GameObject.FindObjectsOfType(typeof(iTweenPath)) as iTweenPath[]).Select(path => path.pathName).ToArray());
+
 							val.pathName = paths[index].pathName;
 						}
 					}
@@ -304,10 +340,10 @@ public class iTweenEventDataEditor : Editor {
 					values[key] = EditorGUILayout.EnumPopup(values.ContainsKey(key) ? (iTween.EaseType)values[key] : iTween.EaseType.linear);
 				}
 				else if(typeof(AudioSource) == pair.Value) {
-					values[key] = (AudioSource)EditorGUILayout.ObjectField(values.ContainsKey(key) ? (AudioSource)values[key] : null, typeof(AudioSource));
+					values[key] = (AudioSource)ObjectField(values.ContainsKey(key) ? (AudioSource)values[key] : null, typeof(AudioSource));
 				}
 				else if(typeof(AudioClip) == pair.Value) {
-					values[key] = (AudioClip)EditorGUILayout.ObjectField(values.ContainsKey(key) ? (AudioClip)values[key] : null, typeof(AudioClip));
+					values[key] = (AudioClip)ObjectField(values.ContainsKey(key) ? (AudioClip)values[key] : null, typeof(AudioClip));
 				}
 				else if(typeof(Color) == pair.Value) {
 					values[key] = EditorGUILayout.ColorField(values.ContainsKey(key) ? (Color)values[key] : Color.white);
@@ -315,20 +351,20 @@ public class iTweenEventDataEditor : Editor {
 				else if(typeof(Space) == pair.Value) {
 					values[key] = EditorGUILayout.EnumPopup(values.ContainsKey(key) ? (Space)values[key] : Space.Self);
 				}
-				
+
 				GUILayout.EndVertical();
 			}
 			else {
 				values.Remove(key);
 			}
-			
+
 			EditorGUILayout.EndToggleGroup();
 			GUILayout.EndHorizontal();
 			EditorGUILayout.Separator();
 		}
-		
+
 		keys = values.Keys.ToArray();
-		
+
 		foreach(var key in keys) {
 			if(values[key] != null && values[key].GetType() == typeof(Vector3OrTransform)) {
 				var val = (Vector3OrTransform)values[key];
@@ -352,7 +388,7 @@ public class iTweenEventDataEditor : Editor {
 				}
 			}
 		}
-		
+
 		evt.Values = values;
 		previousType = evt.type;
 	}
