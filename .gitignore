@@ -1,9 +1,7 @@
-bin
-*.pidb
-Temp
 .DS_Store
-Library/ScriptAssemblies
+Temp
+Library
 *.userprefs
-Publish
 *.csproj
 *.sln
+*.pidb
