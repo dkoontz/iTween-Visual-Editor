@@ -1,8 +1,12 @@
-iTween Visual Editor version 0.5.2
+iTween Visual Editor version 0.6.0
 
 After installation, if you have a Javascript based project it is highly recommended that you run the "Component/iTween/Prepare Visual Editor for Javascript Usage" command. This will copy files into your Plugins directory which is necessary for the visual editor events to be called from Javascript. C# based projects require no further configuration.
 
 Release History ===============
+
+0.6.0 ====
+
+Fixed warnings resulting from API changes in Unity 3.4.  Fixed error where bool fields could pass the wrong value.  Updated bundled iTween version to 2.0.45.1.  Made initial delay field always show, even when 'Play Automatically' was not selected.
 
 0.5.2 ====
 

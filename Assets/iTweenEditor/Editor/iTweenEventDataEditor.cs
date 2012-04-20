@@ -1,4 +1,4 @@
-// Copyright (c) 2009 David Koontz
+// Copyright (c) 2009-2012 David Koontz
 // Please direct any bugs/comments/suggestions to david@koontzfamily.org
 //
 // Thanks to Gabriel Gheorghiu (gabison@gmail.com) for his code submission 
@@ -42,20 +42,6 @@ public class iTweenEventDataEditor : Editor {
     static void AddiTweenEvent () {
 		if(Selection.activeGameObject != null) {
 			Selection.activeGameObject.AddComponent(typeof(iTweenEvent));
-		}
-    }
-	
-	[MenuItem("Component/iTween/Turn on iTweenEvent icons")]
-	static void EnableiTweenEventIcon () {
-		foreach(var o in GameObject.FindObjectsOfType(typeof(iTweenEvent))) {
-			((iTweenEvent)o).showIconInInspector = true;
-		}
-    }
-	
-	[MenuItem("Component/iTween/Turn off iTweenEvent icons")]
-	static void DisableiTweenEventIcon () {
-		foreach(var o in GameObject.FindObjectsOfType(typeof(iTweenEvent))) {
-			((iTweenEvent)o).showIconInInspector = false;
 		}
     }
 	
@@ -148,7 +134,7 @@ public class iTweenEventDataEditor : Editor {
 			}
 		}
 		
-		GUILayout.Label("iTween Event Editor v0.5.3");
+		GUILayout.Label(string.Format("iTween Event Editor v{0}", iTweenEvent.VERSION));
 		EditorGUILayout.Separator();
  		
 		GUILayout.BeginHorizontal();
@@ -164,12 +150,10 @@ public class iTweenEventDataEditor : Editor {
 			evt.playAutomatically = GUILayout.Toggle(evt.playAutomatically, " Play Automatically");
 		GUILayout.EndHorizontal();
 		
-		if(evt.playAutomatically) {
-			GUILayout.BeginHorizontal();
-			GUILayout.Label("Delay");
-			evt.delay = float.Parse(GUILayout.TextField(evt.delay.ToString()));
-			GUILayout.EndHorizontal();
-		}
+		GUILayout.BeginHorizontal();
+		GUILayout.Label("Initial Start Delay (delay begins once the iTweenEvent is played)");
+		evt.delay = EditorGUILayout.FloatField(evt.delay);
+		GUILayout.EndHorizontal();
 		
 		EditorGUILayout.Separator();
 		
@@ -178,7 +162,6 @@ public class iTweenEventDataEditor : Editor {
 			evt.type = (iTweenEvent.TweenType)EditorGUILayout.EnumPopup(evt.type);
 		GUILayout.EndHorizontal();
 		
-		// If switching tween types, reset all inputs to off
 		if(evt.type != previousType) {
 			foreach(var key in EventParamMappings.mappings[evt.type].Keys) {
 				propertiesEnabled[key] = false;
@@ -193,8 +176,10 @@ public class iTweenEventDataEditor : Editor {
 			var key = pair.Key;
 			
 			GUILayout.BeginHorizontal();
-			propertiesEnabled[key] = EditorGUILayout.BeginToggleGroup(key, propertiesEnabled[key]);
-			if(propertiesEnabled[key]) {
+			
+			if(EditorGUILayout.BeginToggleGroup(key, propertiesEnabled[key])) {
+				propertiesEnabled[key] = true;
+				
 				GUILayout.BeginVertical();
 			
 				if(typeof(string) == pair.Value) {
@@ -207,13 +192,10 @@ public class iTweenEventDataEditor : Editor {
 					values[key] = EditorGUILayout.IntField(values.ContainsKey(key) ? (int)values[key] : 0);
 				}
 				else if(typeof(bool) == pair.Value) {
-					GUILayout.BeginHorizontal();
-						GUILayout.Label("True");
-						values[key] = EditorGUILayout.Toggle(values.ContainsKey(key) ? (bool)values[key] : false);
-					GUILayout.EndHorizontal();
+					values[key] = propertiesEnabled[key];
 				}
 				else if(typeof(GameObject) == pair.Value) {
-					values[key] = EditorGUILayout.ObjectField(values.ContainsKey(key) ? (GameObject)values[key] : null, typeof(GameObject));
+					values[key] = EditorGUILayout.ObjectField(values.ContainsKey(key) ? (GameObject)values[key] : null, typeof(GameObject), true);
 				}
 				else if(typeof(Vector3) == pair.Value) {
 					values[key] = EditorGUILayout.Vector3Field("", values.ContainsKey(key) ? (Vector3)values[key] : Vector3.zero);
@@ -230,7 +212,7 @@ public class iTweenEventDataEditor : Editor {
 						val.vector = EditorGUILayout.Vector3Field("", val.vector);
 					}
 					else {
-						val.transform = (Transform)EditorGUILayout.ObjectField(val.transform, typeof(Transform));
+						val.transform = (Transform)EditorGUILayout.ObjectField(val.transform, typeof(Transform), true);
 					}
 					values[key] = val;
 				}
@@ -274,7 +256,7 @@ public class iTweenEventDataEditor : Editor {
 							val.transformArray = resizedArray;
 						}
 						for(var i = 0; i < val.transformArray.Length; ++i) {
-							val.transformArray[i] = (Transform)EditorGUILayout.ObjectField(val.transformArray[i], typeof(Transform));
+							val.transformArray[i] = (Transform)EditorGUILayout.ObjectField(val.transformArray[i], typeof(Transform), true);
 						}
 					}
 					else if(Vector3OrTransformArray.iTweenPathSelected == val.selected) {
@@ -304,10 +286,10 @@ public class iTweenEventDataEditor : Editor {
 					values[key] = EditorGUILayout.EnumPopup(values.ContainsKey(key) ? (iTween.EaseType)values[key] : iTween.EaseType.linear);
 				}
 				else if(typeof(AudioSource) == pair.Value) {
-					values[key] = (AudioSource)EditorGUILayout.ObjectField(values.ContainsKey(key) ? (AudioSource)values[key] : null, typeof(AudioSource));
+					values[key] = (AudioSource)EditorGUILayout.ObjectField(values.ContainsKey(key) ? (AudioSource)values[key] : null, typeof(AudioSource), true);
 				}
 				else if(typeof(AudioClip) == pair.Value) {
-					values[key] = (AudioClip)EditorGUILayout.ObjectField(values.ContainsKey(key) ? (AudioClip)values[key] : null, typeof(AudioClip));
+					values[key] = (AudioClip)EditorGUILayout.ObjectField(values.ContainsKey(key) ? (AudioClip)values[key] : null, typeof(AudioClip), true);
 				}
 				else if(typeof(Color) == pair.Value) {
 					values[key] = EditorGUILayout.ColorField(values.ContainsKey(key) ? (Color)values[key] : Color.white);
@@ -319,6 +301,7 @@ public class iTweenEventDataEditor : Editor {
 				GUILayout.EndVertical();
 			}
 			else {
+				propertiesEnabled[key] = false;
 				values.Remove(key);
 			}
 			

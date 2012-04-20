@@ -1,4 +1,4 @@
-// Copyright (c) 2009 David Koontz
+// Copyright (c) 2009-2012 David Koontz
 // Please direct any bugs/comments/suggestions to david@koontzfamily.org
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -30,6 +30,8 @@ public class ArrayIndexes {
 }
 
 public class iTweenEvent : MonoBehaviour{
+	public const string VERSION = "0.6.0";
+	
 	public enum TweenType {
 		AudioFrom,
 		AudioTo,
@@ -76,6 +78,18 @@ public class iTweenEvent : MonoBehaviour{
 	public iTweenEvent.TweenType type = iTweenEvent.TweenType.MoveTo;
 	public bool showIconInInspector = true;
 	
+	/// <summary>
+	/// Finds an iTweenEvent on a GameObject
+	/// </summary>
+	/// <param name="obj">
+	/// The <see cref="GameObject"/> to look under
+	/// </param>
+	/// <param name="name">
+	/// The name of the <see cref="iTweenEvent"/> to look for
+	/// </param>
+	/// <returns>
+	/// A <see cref="iTweenEvent"/>
+	/// </returns>
 	public static iTweenEvent GetEvent(GameObject obj, string name) {
 		var tweens = obj.GetComponents<iTweenEvent>();
 		if(tweens.Length > 0) {
