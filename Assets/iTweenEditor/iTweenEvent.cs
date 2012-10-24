@@ -173,35 +173,50 @@ public class iTweenEvent : MonoBehaviour{
 	iTweenPath[] paths;
 	
 	Dictionary<string, object> values;
+	bool stopped;
+	iTween instantiatedTween;
+	string internalName;
 	
 	public void Start() {
-		if(playAutomatically) {
-			Play();
-		}
+		if(playAutomatically) Play();
 	}
 	
 	public void Play() {
+		if(!string.IsNullOrEmpty(internalName)) Stop();
+		
+		stopped = false;
 		StartCoroutine(StartEvent());
 	}
 	
+	/// <summary>
+	/// Stops the currently running tween that was started with <seealso cref="Play"/>.  A tween
+	/// stopped in this manner will not go to the "end" of the tween.
+	/// </summary>
+	public void Stop() {
+		iTween.StopByName(gameObject, internalName);
+		internalName = "";
+		stopped = true;
+	}
+	
 	public void OnDrawGizmos() {
-		if(showIconInInspector) {
-			Gizmos.DrawIcon(transform.position, "iTweenIcon.tif");
-		}
+		if(showIconInInspector) Gizmos.DrawIcon(transform.position, "iTweenIcon.tif");
 	}
 	
 	IEnumerator StartEvent() {
 		if(delay > 0) yield return new WaitForSeconds(delay);
 		
+		if(stopped) yield return null;
+		
 		var optionsHash = new Hashtable();
 		foreach(var pair in Values) {
-			if("path" == pair.Key && pair.Value.GetType() == typeof(string)) {
-				optionsHash.Add(pair.Key, iTweenPath.GetPath((string)pair.Value));
-			}
-			else {
-				optionsHash.Add(pair.Key, pair.Value);
-			}
+			if("path" == pair.Key && pair.Value.GetType() == typeof(string)) optionsHash.Add(pair.Key, iTweenPath.GetPath((string)pair.Value));
+			else optionsHash.Add(pair.Key, pair.Value);
 		}
+		
+		// We use the internalName to have a unique identifier to stop the tween
+		internalName = string.IsNullOrEmpty(tweenName) ? string.Empty : tweenName;
+		internalName = string.Format("{0}-{1}", internalName, System.Guid.NewGuid().ToString());
+		optionsHash.Add("name", internalName);
 		
 		switch(type) {
 		case TweenType.AudioFrom:
