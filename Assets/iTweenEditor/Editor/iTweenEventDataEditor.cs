@@ -67,6 +67,11 @@ public class iTweenEventDataEditor : Editor {
 		}
 	}
 	
+	[MenuItem("Component/iTween/Donate to support the Visual Editor")]
+	static void Donate() {
+		Application.OpenURL("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WD3GQ6HHD257C");
+	}
+	
 	public void OnEnable() {
 		var evt = (iTweenEvent)target;
 		foreach(var key in EventParamMappings.mappings[evt.type].Keys) {
