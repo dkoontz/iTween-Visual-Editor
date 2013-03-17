@@ -660,6 +660,7 @@ public class EventParamMappings {
 		mappings[iTweenEvent.TweenType.ShakePosition]["x"] = typeof(float);
 		mappings[iTweenEvent.TweenType.ShakePosition]["y"] = typeof(float);
 		mappings[iTweenEvent.TweenType.ShakePosition]["z"] = typeof(float);
+		mappings[iTweenEvent.TweenType.ShakePosition]["islocal"] = typeof(bool);
 		mappings[iTweenEvent.TweenType.ShakePosition]["space"] = typeof(Space);
 		mappings[iTweenEvent.TweenType.ShakePosition]["orienttopath"] = typeof(bool);
 		mappings[iTweenEvent.TweenType.ShakePosition]["looktarget"] = typeof(Vector3OrTransform);
