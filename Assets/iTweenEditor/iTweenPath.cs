@@ -20,7 +20,8 @@ public class iTweenPath : MonoBehaviour
 	}
 
 	void OnEnable(){
-		paths.Add(pathName.ToLower(), this);
+		//paths.Add(pathName.ToLower(), this);
+		paths[pathName.ToLower()] = this;
 	}
 	
 	void OnDrawGizmosSelected(){
