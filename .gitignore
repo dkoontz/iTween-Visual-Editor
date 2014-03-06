@@ -4,7 +4,7 @@ Obj/
 UnityGenerated/
 Library/
 *.apk
-*.meta
+
 # ----[ Visual Studio / MonoDevelop generated ]------- #
  
 ExportedObj/
